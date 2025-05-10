@@ -1,0 +1,196 @@
+@use "variables" as vars; // Import des variables globales
+@use "sass:color"; // Import des fonctions Sass pour les couleurs
+
+// Page de résultats
+.results-container {
+  max-width: 580px; // Même largeur que le quiz-container
+  width: 100%;
+  margin: 10px auto 20px auto;
+  padding: 15px;
+
+  .results-card {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    padding: 25px;
+    text-align: center;
+
+    h2 {
+      font-size: 28px;
+      margin: 8px 0 20px 0;
+      color: #1d1d1f;
+    }
+
+    .score {
+      font-size: 42px;
+      font-weight: 700;
+      color: #0071e3;
+      margin: 25px 0;
+    }
+
+    .result-message {
+      font-size: 18px;
+      margin-bottom: 25px;
+      padding: 10px;
+      border-radius: 8px;
+
+      &.success {
+        background-color: #e8f5e9;
+        color: #388e3c;
+      }
+
+      &.good {
+        background-color: #e3f2fd;
+        color: #1976d2;
+      }
+
+      &.average {
+        background-color: #fff8e1;
+        color: #ff8f00;
+      }
+
+      &.needs-improvement {
+        background-color: #ffebee;
+        color: #d32f2f;
+      }
+    }
+
+    .result-details {
+      margin-top: 25px;
+      text-align: left;
+
+      .question-result {
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #f5f5f7;
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        h4 {
+          font-size: 18px;
+          margin-bottom: 8px;
+        }
+
+        .correct {
+          color: #388e3c;
+          font-weight: 600;
+        }
+
+        .incorrect {
+          color: #d32f2f;
+          font-weight: 600;
+        }
+      }
+    }
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 25px;
+
+      .btn {
+        background-color: #0071e3;
+        color: white;
+        padding: 12px 25px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: background-color 0.2s ease;
+
+        &:hover {
+          background-color: #0060c9;
+        }
+      }
+
+      .btn.secondary {
+        background: #f5f5f7;
+        color: #1d1d1f;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+        &:hover {
+          background: #e5e5ea;
+        }
+      }
+    }
+  }
+}
+
+.share-container {
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  width: 100%; // Assure que le conteneur prend toute la largeur
+}
+
+.share-btn {
+  display: none; // Caché par défaut, affiché via JS si l'API est disponible
+  background-color: #8b4513 !important; // Couleur marron
+  color: white;
+  padding: 14px 24px;
+  border-radius: 14px; // Coins moins arrondis pour un bouton plus large
+  font-weight: 600;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center; // Centre le texte et l'icône horizontalement
+  gap: 10px;
+  transition: background-color 0.2s, transform 0.1s;
+  border: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  width: 100%; // Prend toute la largeur disponible
+  max-width: 100%; // S'assure qu'il ne dépasse pas
+  text-align: center; // Centre le texte
+
+  i {
+    font-size: 18px;
+  }
+
+  &:hover {
+    background-color: #9e5e3a; // Marron un peu plus clair au survol
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(1px);
+    background-color: #6b3612; // Marron plus foncé quand on appuie
+  }
+
+  // Style pour la version fallback (liens directs)
+  &.fallback {
+    display: flex;
+
+    a {
+      color: white;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center; // Centre le contenu
+      gap: 8px;
+      width: 100%; // Lien prend toute la largeur
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+// Animation pour le bouton de partage
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  } // Animation plus subtile pour un bouton large
+  100% {
+    transform: scale(1);
+  }
+}
+
+// Appliquer l'animation après que le résultat est affiché
+.results-complete .share-btn {
+  animation: pulse 2s infinite;
+}

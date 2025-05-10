@@ -1,0 +1,275 @@
+@use "variables" as vars; // Import des variables globales
+@use "sass:color"; // Import des fonctions Sass pour les couleurs
+
+// Styles spécifiques pour la page de quiz
+
+// Conteneur principal du quiz
+.quiz-container {
+  max-width: 580px;
+  width: 100%;
+  margin: 10px auto 20px auto; /* Augmente la marge du bas pour éviter de toucher le footer */
+  padding: 15px; /* Réd1it de 15px à 12px */
+  background-color: #f5f5f7;
+  border-radius: 12px; /* Réduit de 16px à 12px */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center; // Centre horizontalement tous les éléments enfants
+
+  h2 {
+    font-size: 28px; /* Réduit de 32px à 28px */
+    font-weight: 600;
+    color: #1d1d1f;
+    text-align: center;
+    margin: 8px 0 20px 0; /* Réduit la marge supérieure à 8px seulement */
+    letter-spacing: -0.5px;
+  }
+
+  // Barre de progression
+  .quiz-progress {
+    width: 100%; // Assure que la barre prend toute la largeur
+    margin-bottom: 20px; /* Réduit de 30px à 20px */
+    text-align: center; // Centre le texte
+
+    .progress-bar {
+      height: 8px;
+      background-color: #e0e0e0;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 8px; /* Réduit de 10px à 8px */
+
+      .progress-fill {
+        height: 100%;
+        background-color: #0071e3;
+        border-radius: 4px;
+        transition: width 0.5s ease;
+      }
+    }
+
+    .progress-text {
+      text-align: center;
+      font-size: 16px;
+      color: #86868b;
+    }
+  }
+
+  .question-box {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 15px; /* Réduit de 20px à 15px */
+    margin-bottom: 15px; /* Réduit de 20px à 15px */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    display: none;
+    width: 100%; // Prend toute la largeur disponible
+    text-align: center; // Centre le texte
+
+    &.active {
+      display: block;
+      animation: fadeIn 0.5s ease;
+      width: 90%; // S'assure que ça prend toute la largeur disponible
+    }
+
+    h3 {
+      font-size: 22px; /* Réduit de 24px à 22px */
+      margin-bottom: 12px; /* Réduit de 15px à 12px */
+      color: #1d1d1f;
+      text-align: center; // Centre les titres
+    }
+
+    .question-text {
+      font-size: 18px;
+      margin-bottom: 12px; /* Réduit de 15px à 12px */
+      color: #333;
+      text-align: center; // Centre le texte des questions
+    }
+
+    .question-image-container {
+      margin-bottom: 12px; /* Réduit de 15px à 12px */
+      text-align: center;
+
+      img {
+        max-width: 100%;
+        max-height: 180px; /* Réduit de 200px à 180px */
+        border-radius: 8px;
+      }
+    }
+
+    .answers {
+      margin-bottom: 15px; /* Réduit de 20px à 15px */
+      width: 100%;
+
+      .answer {
+        margin-bottom: 6px; /* Réduit de 8px à 6px */
+        padding: 6px; /* Réduit de 8px à 6px */
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+        width: 100%;
+        box-sizing: border-box;
+        text-align: left; // Garde le texte des réponses aligné à gauche pour la lisibilité
+
+        &:hover {
+          background-color: #f9f9f9;
+          border-color: #d0d0d0;
+        }
+
+        input[type="radio"] {
+          margin-right: 10px;
+        }
+
+        label {
+          cursor: pointer;
+          width: 100%;
+          display: inline-block;
+        }
+      }
+
+      .selected {
+        background-color: #e8f0fe;
+        border-color: #0071e3;
+      }
+    }
+
+    .question-actions {
+      display: flex;
+      justify-content: center; // Centre les boutons
+      margin-top: 15px; /* Réduit de 20px à 15px */
+      width: 100%;
+    }
+  }
+
+  .actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+
+    .btn {
+      background: linear-gradient(145deg, #0070e2, #0077ed);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 15px 35px;
+      font-size: 18px;
+      font-weight: 500;
+      letter-spacing: -0.3px;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+      box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3);
+
+      &:hover {
+        background: linear-gradient(145deg, #005cbf, #006dd8);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(0, 113, 227, 0.4);
+      }
+
+      &:active {
+        transform: translateY(1px);
+        box-shadow: 0 2px 8px rgba(0, 113, 227, 0.3);
+      }
+    }
+  }
+}
+
+// Style pour le formulaire de quiz spécifiquement
+#quiz-form,
+form.quiz-form {
+  width: 100%;
+  max-width: 530px; // Réduit de 20% par rapport à 800px
+  margin: 0 auto 20px auto; /* Ajoute une marge au bas du formulaire */
+  display: flex;
+  flex-direction: column;
+  align-items: center; // Centre les éléments enfants horizontalement
+}
+
+// Page de résultats
+.results-container {
+  max-width: 960px; // Même largeur que le quiz
+  width: 100%;
+  margin: 30px auto;
+  padding: 20px;
+
+  .results-card {
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    padding: 30px;
+    text-align: center;
+
+    h2 {
+      font-size: 32px;
+      margin-bottom: 20px;
+      color: #0071e3;
+    }
+
+    .score {
+      font-size: 48px;
+      font-weight: 700;
+      color: #1d1d1f;
+      margin: 30px 0;
+    }
+  }
+}
+
+// Animations
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Message quand il n'y a pas de questions
+.quiz-container > p {
+  background-color: #f7f6f5;
+  padding: 25px;
+  border-radius: 12px;
+  text-align: center;
+  color: #86868b;
+  font-size: 18px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+// Styles responsifs
+@media (max-width: 768px) {
+  .quiz-container {
+    padding: 15px;
+
+    h2 {
+      font-size: 26px;
+    }
+
+    .question-box {
+      padding: 20px;
+
+      h3 {
+        font-size: 18px;
+      }
+
+      p {
+        font-size: 16px;
+      }
+
+      .answers .answer {
+        padding: 12px;
+
+        label {
+          font-size: 15px;
+        }
+      }
+
+      .question-actions button {
+        padding: 12px 25px;
+        font-size: 15px;
+      }
+    }
+
+    .actions .btn {
+      padding: 12px 25px;
+      font-size: 16px;
+    }
+  }
+}

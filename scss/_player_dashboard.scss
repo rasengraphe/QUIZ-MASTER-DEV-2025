@@ -1,0 +1,496 @@
+@use "variables";
+@use "sass:color";
+
+/* Styles pour le tableau de bord du joueur */
+// Ajouter cette nouvelle classe
+.dashboard-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 30px 20px;
+  background-color: #f5f5f7;
+}
+
+.player-dashboard-container {
+  max-width: 1200px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(
+    100vh - 12vh
+  ); // Soustrait la hauteur du header et footer (2 x 6vh)
+  background-color: #f5f5f7;
+  position: relative;
+  padding-bottom: 30px; // Espace pour le footer
+  padding-top: 20px; // Ajout d'un padding en haut pour éviter de toucher le header
+
+  .dashboard-header {
+    background: linear-gradient(135deg, #0071e3, #42a5f5);
+    color: white;
+    padding: 30px 20px;
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 20px; // Ajout d'une marge au-dessus du header du dashboard
+    border-radius: 12px; // Optionnel: pour arrondir les coins
+
+    h1 {
+      margin: 0;
+      font-size: 2.2rem;
+      font-weight: 600;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+      span {
+        font-weight: 300;
+      }
+    }
+  }
+}
+
+.player-dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+
+    .profile-card {
+      grid-column: span 2;
+    }
+
+    .dashboard-stats {
+      grid-column: span 2;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+
+    .profile-card {
+      grid-column: span 3;
+    }
+
+    .dashboard-stats {
+      grid-column: span 3;
+    }
+
+    .dashboard-card:not(.profile-card) {
+      grid-column: span 1;
+    }
+  }
+
+  .dashboard-card {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    transition: transform 0.2s, box-shadow 0.2s;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .section-title {
+      font-size: 1.4rem;
+      color: #333;
+      margin-top: 0;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      align-items: center;
+
+      i {
+        margin-right: 10px;
+        color: #0071e3;
+      }
+    }
+  }
+
+  .profile-card {
+    padding: 0;
+    overflow: hidden;
+
+    .profile-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: linear-gradient(135deg, #0071e3, #42a5f5);
+      color: white;
+      padding: 30px 20px;
+
+      @media (min-width: 576px) {
+        flex-direction: row;
+        padding: 30px;
+      }
+
+      .avatar-container {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        border: 4px solid white;
+        overflow: hidden;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+
+        @media (min-width: 576px) {
+          margin-bottom: 0;
+          margin-right: 30px;
+        }
+
+        .avatar-image {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+
+      .profile-details {
+        text-align: center;
+
+        @media (min-width: 576px) {
+          text-align: left;
+          flex: 1;
+        }
+
+        h2 {
+          margin: 0 0 5px 0;
+          font-size: 1.8rem;
+          font-weight: 600;
+        }
+
+        .member-since {
+          opacity: 0.8;
+          margin: 0 0 15px 0;
+          font-size: 0.9rem;
+        }
+
+        .score-badge {
+          background-color: rgba(255, 255, 255, 0.2);
+          padding: 8px 16px;
+          border-radius: 20px;
+          font-weight: 600;
+          font-size: 1.1rem;
+          display: inline-block;
+
+          @media (min-width: 576px) {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+          }
+        }
+      }
+    }
+  }
+
+  .dashboard-stats {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+
+    @media (min-width: 576px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+
+      &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+      }
+
+      .stat-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: #0071e3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+
+        i {
+          color: white;
+          font-size: 1.4rem;
+        }
+      }
+
+      .stat-content {
+        flex: 1;
+
+        h3 {
+          margin: 0 0 5px 0;
+          font-size: 1rem;
+          color: #555;
+        }
+
+        .stat-value {
+          margin: 0;
+          font-size: 1.8rem;
+          font-weight: 600;
+          color: #0071e3;
+        }
+      }
+
+      &:nth-child(2) {
+        .stat-icon {
+          background-color: #ff9500;
+        }
+
+        .stat-value {
+          color: #ff9500;
+        }
+      }
+
+      &:nth-child(3) {
+        .stat-icon {
+          background-color: #34c759;
+        }
+
+        .stat-value {
+          color: #34c759;
+        }
+      }
+    }
+  }
+
+  .action-buttons {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+
+    @media (min-width: 576px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .action-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 15px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      color: white;
+
+      i {
+        margin-right: 8px;
+      }
+
+      &.primary {
+        background-color: #0071e3;
+
+        &:hover {
+          background-color: darken(#0071e3, 5%);
+        }
+      }
+
+      &.secondary {
+        background-color: #5856d6;
+
+        &:hover {
+          background-color: darken(#5856d6, 5%);
+        }
+      }
+
+      &.tertiary {
+        background-color: #34c759;
+
+        &:hover {
+          background-color: darken(#34c759, 5%);
+        }
+      }
+    }
+  }
+
+  .recent-games {
+    .game-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 0;
+      border-bottom: 1px solid #eee;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      .game-info {
+        flex: 1;
+
+        .game-title {
+          margin: 0 0 5px 0;
+          font-size: 1.1rem;
+        }
+
+        .game-meta {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 15px;
+          font-size: 0.9rem;
+          color: #666;
+
+          i {
+            margin-right: 5px;
+          }
+
+          .game-score {
+            color: #0071e3;
+            font-weight: 600;
+          }
+        }
+      }
+
+      .view-details-btn {
+        background-color: #f5f5f7;
+        color: #333;
+        border: none;
+        border-radius: 6px;
+        padding: 8px 15px;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+
+        i {
+          margin-right: 5px;
+        }
+
+        &:hover {
+          background-color: #e5e5ea;
+        }
+      }
+    }
+  }
+
+  .quiz-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+
+    @media (min-width: 576px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .quiz-card {
+      background-color: #f8f9fa;
+      border-radius: 10px;
+      padding: 20px;
+      position: relative;
+      transition: transform 0.2s;
+
+      &:hover {
+        transform: translateY(-5px);
+      }
+
+      .quiz-header {
+        margin-bottom: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+
+        h3 {
+          margin: 0;
+          font-size: 1.2rem;
+          padding-right: 65px;
+        }
+
+        .difficulty-badge {
+          padding: 4px 8px;
+          border-radius: 4px;
+          font-size: 0.8rem;
+          font-weight: 600;
+          color: white;
+
+          &.facile {
+            background-color: #34c759;
+          }
+
+          &.moyen {
+            background-color: #ff9500;
+          }
+
+          &.difficile {
+            background-color: #ff3b30;
+          }
+
+          &.unknown {
+            background-color: #8e8e93;
+          }
+        }
+      }
+
+      .quiz-description {
+        color: #666;
+        font-size: 0.95rem;
+        margin-bottom: 20px;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      .play-btn {
+        background-color: #0071e3;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        padding: 10px 15px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background-color 0.2s;
+
+        i {
+          margin-right: 8px;
+        }
+
+        &:hover {
+          background-color: darken(#0071e3, 5%);
+        }
+      }
+    }
+  }
+
+  .view-all {
+    text-align: center;
+    margin-top: 20px;
+
+    a {
+      color: #0071e3;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+
+      &:hover {
+        text-decoration: underline;
+      }
+
+      i {
+        margin-left: 5px;
+      }
+    }
+  }
+}
+
+// Assurez-vous que le footer est bien en bas
+footer {
+  position: relative;
+  margin-top: auto;
+  width: 100%;
+}
