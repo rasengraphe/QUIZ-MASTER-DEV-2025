@@ -1,0 +1,58 @@
+@use "variables" as vars; // Import des variables globales avec un alias
+@use "sass:color"; // Import des fonctions Sass pour les couleurs
+
+.text-center {
+  text-align: center;
+}
+
+.form-description {
+  color: #6c757d;
+  margin-bottom: 20px;
+  font-size: 16px;
+  text-align: center;
+}
+
+.avatar-grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 10px auto;
+  width: 100%;
+  max-width: 400px;
+}
+
+.avatar-option {
+  flex: 0 0 auto;
+  position: relative;
+  margin: 0 5px;
+}
+
+.avatar-option input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.avatar-option label {
+  cursor: pointer;
+  display: inline-block;
+}
+
+.avatar-preview {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  transition: all 0.2s;
+  display: block;
+}
+
+.avatar-option input[type="radio"]:checked + label .avatar-preview {
+  border-color: #0071e3;
+  box-shadow: 0 0 0 1px #0071e3;
+  transform: scale(1.1);
+}

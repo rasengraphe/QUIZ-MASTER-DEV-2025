@@ -1,0 +1,86 @@
+/* filepath: c:\wamp64\www\QUIZ-MASTER-DEV-2025\public\scss\_variables.scss */
+$couleur-principal: #0071e3;
+$couleur-secondaire: #f5f5f7;
+$couleur-texte: #1d1d1f;
+$couleur-blanc: #ffffff;
+$couleur-bordure: #d2d2d7;
+
+/* filepath: c:\wamp64\www\QUIZ-MASTER-DEV-2025\public\scss\_home.scss */
+
+@use "sass:color";
+
+body {
+  display: flex;
+  flex-direction: column; /* Organise les sections verticalement */
+  height: 100vh; /* Utilise 100% de la hauteur de la fenêtre */
+  margin: 0;
+}
+
+header,
+footer {
+  flex-shrink: 0; /* Empêche le header et le footer de rétrécir */
+  height: 10%; /* Hauteur relative à la fenêtre (10% chacun) */
+  background-color: $couleur-secondaire;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+// main {
+//   flex: 1; /* Prend tout l'espace disponible entre le header et le footer */
+//   display: flex;
+//   justify-content: center; /* Centre horizontalement */
+//   align-items: center; /* Centre verticalement */
+//   padding: 10px;
+//   background-color: $couleur-secondaire; /* Optionnel : couleur de fond */
+// }
+
+.home-card {
+  max-width: 500px; /* Réduit la largeur pour s'adapter à l'écran */
+  padding: 15px;
+  background-color: $couleur-blanc;
+  border-radius: 10px; /* Bordures arrondies */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre pour l'effet de carte */
+  text-align: center;
+
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px; /* Bordures arrondies pour l'image */
+    margin-bottom: 10px; /* Espacement sous l'image */
+  }
+
+  h1 {
+    font-size: 20px; /* Réduit la taille de la police */
+    margin-bottom: 10px;
+    color: $couleur-principal;
+  }
+
+  p {
+    font-size: 14px; /* Réduit la taille de la police */
+    margin-bottom: 15px;
+    color: $couleur-texte;
+  }
+
+  .actions {
+    display: flex;
+    justify-content: center; /* Centre les boutons */
+    gap: 10px; /* Espacement entre les boutons */
+
+    a {
+      background-color: color.adjust($couleur-principal, $lightness: -10%);
+      color: $couleur-blanc;
+      padding: 8px 15px; /* Réduit la taille des boutons */
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 12px; /* Réduit la taille de la police */
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: color.adjust($couleur-principal, $lightness: -20%);
+      }
+    }
+  }
+}

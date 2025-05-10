@@ -1,0 +1,336 @@
+@use "variables" as vars; // Import des variables globales
+@use "sass:color"; // Import des fonctions Sass pour les couleurs
+
+// Structure globale de la page avec footer en bas
+body:has(.edit-question-container) {
+  display: flex;
+  flex-direction: column;
+
+  min-height: 100vh;
+  padding: 0 !important;
+  margin: 0 !important;
+  background-color: #f5f5f7 !important;
+}
+
+// Wrapper principal qui contient tout le contenu SAUF le footer
+.page-container {
+  flex: 1 0 auto; // Ceci est crucial - prend tout l'espace disponible
+  display: flex;
+  flex-direction: column; // Changé pour permettre d'ajouter le bouton en haut
+  align-items: center;
+  padding: 20px 20px 40px; // Ajusté pour donner plus d'espace en haut
+  background-color: #f5f7fa;
+
+  // Nouveau bouton retour en haut de la page
+  .btn.back-top {
+    background-color: #607d8b;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 15px; // Espace sous le bouton
+    padding: 8px 15px; // Plus petit que le bouton principal
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 14px; // Police plus petite
+    transition: all 0.2s;
+    // Supprimé align-self: flex-start; pour permettre le centrage
+    // Propriétés pour centrer
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+
+    &:hover {
+      background-color: #455a64;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+  }
+}
+
+.edit-question-container {
+  width: 100%;
+  max-width: 900px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  padding: 30px;
+  margin-bottom: 40px;
+
+  h1 {
+    font-size: 28px;
+    font-weight: 600;
+    color: #1d1d1f;
+    text-align: center;
+    margin: 8px 0 20px 0;
+    letter-spacing: -0.5px;
+  }
+
+  h2 {
+    font-size: 22px;
+    color: #1d1d1f;
+    margin: 15px 0;
+    text-align: center;
+  }
+
+  // Styles pour les alertes
+  .alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+
+    &.success {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    &.error {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+  }
+
+  // Sélecteur de question
+  .question-selector {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+
+    form {
+      margin-bottom: 0;
+      width: 100%;
+    }
+
+    .form-group {
+      margin-bottom: 0;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 500;
+      color: #1d1d1f;
+    }
+
+    select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ced4da;
+      border-radius: 8px;
+      font-size: 16px;
+      background-color: #f8f9fa;
+
+      &:focus {
+        border-color: #0071e3;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.25);
+      }
+    }
+  }
+
+  // Formulaire d'édition
+  .edit-form {
+    margin-bottom: 30px;
+
+    h2 {
+      font-size: 22px;
+      color: #1d1d1f;
+      margin-top: 0;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: #1d1d1f;
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 16px;
+
+        &:focus {
+          border-color: #0071e3;
+          outline: none;
+          box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.25);
+        }
+      }
+
+      .form-control-file {
+        display: block;
+        width: 100%;
+        padding: 8px 0;
+      }
+    }
+
+    // Style pour l'image actuelle
+    .current-image {
+      margin-top: 15px;
+      padding: 10px;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      background-color: #f5f5f5;
+
+      p {
+        margin-top: 0;
+        font-weight: 500;
+        color: #1d1d1f;
+      }
+
+      img {
+        display: block;
+        max-width: 300px;
+        max-height: 200px;
+        margin: 10px 0;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+
+      label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 10px;
+        font-weight: normal;
+
+        input[type="checkbox"] {
+          margin-right: 8px;
+        }
+      }
+    }
+
+    .image-source-selector {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 15px;
+    }
+
+    .source-option {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .image-option {
+      margin-bottom: 15px;
+      padding: 10px;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      background-color: #f9f9f9;
+    }
+
+    .image-actions {
+      margin-top: 10px;
+    }
+
+    // Boutons d'action
+    .form-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 15px;
+
+      button,
+      .btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.2s;
+        font-size: 16px;
+
+        &.save {
+          background-color: #4caf50;
+          color: white;
+        }
+
+        &.cancel {
+          background-color: #f44336;
+          color: white;
+          margin-left: 10px;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
+  // Bouton retour
+  .btn.back {
+    background-color: #607d8b;
+    color: white;
+    text-decoration: none;
+    display: block; // Changé de inline-block à block
+    margin: 20px auto 0; // Ajout de auto pour les marges gauche et droite
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: all 0.2s;
+    text-align: center; // Centrer le texte dans le bouton
+    max-width: 250px; // Limiter la largeur du bouton
+
+    &:hover {
+      background: linear-gradient(145deg, #005cbf, #006dd8);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 113, 227, 0.4);
+    }
+
+    &:active {
+      transform: translateY(1px);
+      box-shadow: 0 2px 8px rgba(0, 113, 227, 0.3);
+    }
+  }
+}
+
+// Assurez-vous que le footer reste en bas de la page
+body:has(.edit-question-container) footer {
+  flex-shrink: 0; // Empêche le footer de rétrécir
+  margin-top: auto; // Pousse le footer vers le bas
+  width: 100%;
+}
+
+.hidden {
+  display: none;
+}
+
+// Styles responsifs - mêmes breakpoints que _play.scss
+@media (max-width: 768px) {
+  .edit-question-container {
+    padding: 15px;
+
+    h1 {
+      font-size: 24px;
+    }
+
+    h2 {
+      font-size: 20px;
+    }
+
+    .question-selector,
+    .edit-form {
+      padding: 15px;
+    }
+
+    .form-actions {
+      flex-direction: column;
+      gap: 10px;
+
+      button,
+      .btn {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
