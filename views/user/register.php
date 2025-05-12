@@ -41,15 +41,15 @@
                 <input type="password" id="password_confirm" name="password_confirm" required>
             </div>
 
-            <!-- Nouvelle structure pour les avatars -->
+            <!-- Version améliorée et responsive pour les avatars -->
             <div class="form-group">
                 <label>Choisissez un avatar :</label>
-                <div class="avatar-selection" style="display: flex; justify-content: center; gap: 15px;">
+                <div class="avatar-selection">
                     <?php for($i = 1; $i <= 5; $i++): ?>
-                        <div style="display: inline-block; text-align: center; margin: 0 5px;">
-                            <input type="radio" id="avatar<?php echo $i; ?>" name="avatar" value="<?php echo $i; ?>" <?php echo ($i === 1) ? 'checked' : ''; ?> style="display: none;">
-                            <label for="avatar<?php echo $i; ?>" style="cursor: pointer;">
-                                <img src="public/img/avatars/avatar<?php echo $i; ?>.png" alt="Avatar <?php echo $i; ?>" style="width: 80px; height: 80px; border-radius: 50%; border: 2px solid <?php echo ($i === 1) ? '#0071e3' : 'transparent'; ?>; transition: all 0.2s;">
+                        <div class="avatar-option">
+                            <input type="radio" id="avatar<?php echo $i; ?>" name="avatar" value="<?php echo $i; ?>" <?php echo ($i === 1) ? 'checked' : ''; ?>>
+                            <label for="avatar<?php echo $i; ?>">
+                                <img src="public/img/avatars/avatar<?php echo $i; ?>.png" alt="Avatar <?php echo $i; ?>" class="avatar-preview">
                             </label>
                         </div>
                     <?php endfor; ?>
@@ -67,27 +67,34 @@
     </div>
 </div>
 
-
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const avatarOptions = document.querySelectorAll('.avatar-option input[type="radio"]');
+    const avatarInputs = document.querySelectorAll('.avatar-option input[type="radio"]');
     
-    // Sélectionner le premier avatar par défaut si aucun n'est sélectionné
-    if (avatarOptions.length > 0 && ![...avatarOptions].some(input => input.checked)) {
-        avatarOptions[0].checked = true;
-        avatarOptions[0].parentElement.classList.add('active');
-    }
+    // Vérifier quelle option est sélectionnée au chargement
+    avatarInputs.forEach(input => {
+        if (input.checked) {
+            const img = input.nextElementSibling.querySelector('.avatar-preview');
+            if (img) {
+                img.style.borderColor = '#0071e3';
+            }
+        }
+    });
     
-    avatarOptions.forEach(option => {
-        option.addEventListener('change', function() {
-            // Retirer la classe active de tous les avatars
+    // Ajouter les écouteurs d'événements pour le changement de sélection
+    avatarInputs.forEach(input => {
+        input.addEventListener('change', function() {
+            // Réinitialiser tous les avatars
             document.querySelectorAll('.avatar-preview').forEach(img => {
-                img.parentElement.parentElement.classList.remove('active');
+                img.style.borderColor = 'transparent';
             });
             
-            // Ajouter la classe active à l'avatar sélectionné
+            // Mettre en surbrillance l'avatar sélectionné
             if (this.checked) {
-                this.parentElement.classList.add('active');
+                const img = this.nextElementSibling.querySelector('.avatar-preview');
+                if (img) {
+                    img.style.borderColor = '#0071e3';
+                }
             }
         });
     });

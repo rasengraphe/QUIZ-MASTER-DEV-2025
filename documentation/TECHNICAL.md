@@ -1,75 +1,40 @@
-# Documentation Technique QUIZ-MASTER-DEV-2025
+# Documentation Technique - Quiz Master Dev 2025
 
-Ce document détaille les aspects techniques du projet pour les développeurs qui souhaitent comprendre son fonctionnement interne ou y contribuer.
+## Architecture du projet
 
-## Architecture MVC
+Quiz Master Dev utilise une architecture MVC (Modèle-Vue-Contrôleur) personnalisée pour séparer les responsabilités et assurer une maintenance efficace :
 
-Le projet suit le modèle d'architecture Modèle-Vue-Contrôleur (MVC) :
+- **Modèles** : Gestion des données et interaction avec la base de données
+- **Vues** : Présentation des interfaces utilisateur
+- **Contrôleurs** : Traitement des requêtes et coordination
 
-### Modèle
+### Structure des dossiers
 
-Les modèles sont situés dans le dossier `models/` et héritent de la classe de base `Model` qui fournit les méthodes fondamentales d'accès à la base de données:
-
-```php
-// core/Model.php
-class Model {
-    protected $db;
-
-    public function __construct($db) {
-        $this->db = $db;
-    }
-
-    // Méthodes auxiliaires pour les requêtes
-    protected function executeQuery($sql, $params = []) {
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute($params);
-        return $stmt;
-    }
-}
+```
+QUIZ-MASTER-DEV-2025/
+├── config/                  # Configuration (connexion BDD)
+├── controllers/             # Contrôleurs (logique applicative)
+├── core/                    # Classes fondamentales
+├── models/                  # Modèles (accès aux données)
+├── public/                  # Ressources publiques
+│   ├── css/                 # Fichiers CSS compilés
+│   ├── img/                 # Images
+│   │   └── avatars/         # Avatars utilisateurs
+│   ├── js/                  # Scripts JavaScript
+│   └── scss/                # Fichiers SCSS source
+├── uploads/                 # Fichiers téléchargés
+│   └── questions/           # Images des questions
+├── views/                   # Vues (templates)
+│   ├── admin/               # Pages d'administration
+│   ├── layout/              # Templates partagés
+│   └── user/                # Pages utilisateur
+├── documentation/           # Documentation du projet
+└── index.php                # Point d'entrée
 ```
 
-Modèles principaux :
+## Système de routage
 
-- `QuestionModel` : Gestion des questions et réponses
-- `QuizModel` : Gestion des quiz
-- `UserModel` : Gestion des utilisateurs
-- `PlayerModel` : Fonctionnalités spécifiques aux joueurs
-- `AvatarModel` : Gestion des avatars
-
-### Contrôleur
-
-Les contrôleurs sont dans le dossier `controllers/` et héritent de la classe `Controller` qui fournit les méthodes communes :
-
-```php
-// core/Controller.php
-class Controller {
-    protected $db;
-
-    public function __construct($db) {
-        $this->db = $db;
-    }
-
-    protected function view($viewPath, $data = []) {
-        extract($data);
-        include("views/{$viewPath}.php");
-    }
-}
-```
-
-Contrôleurs principaux :
-
-- `AdminController` : Gestion administrative
-- `UserController` : Authentification et profil utilisateur
-- `QuizController` : Déroulement des quiz
-- `PlayerController` : Fonctionnalités des joueurs
-
-### Vue
-
-Les vues se trouvent dans le dossier `views/` et sont organisées selon leur contexte d'utilisation.
-
-## Routage
-
-Le système de routage est implémenté dans le fichier `index.php` à la racine du projet. Il s'agit d'un routage simple basé sur des paramètres GET :
+Le système de routage est centralisé dans le fichier `index.php`. Il gère toutes les requêtes entrantes et les dirige vers les contrôleurs appropriés :
 
 ```php
 $action = $_GET['action'] ?? 'home';
@@ -79,163 +44,167 @@ switch ($action) {
         $controller = new UserController($db);
         $controller->login();
         break;
-    // autres routes...
+    // Autres routes...
+    default:
+        include 'views/home.php';
+        break;
 }
 ```
 
-## Système d'authentification
+## Base de données
 
-L'authentification utilise les sessions PHP et vérifie les rôles utilisateur à chaque action sensible :
+### Schéma
+
+La base de données MySQL contient les tables suivantes :
+
+#### Tables principales (V1)
+- `quiz_users` : Informations des utilisateurs
+- `quiz_question` : Questions des quiz
+- `quiz_question_answer` : Réponses possibles aux questions
+- `quiz_game_history` : Historique des parties jouées
+- `quiz_avatar` : Avatars disponibles pour les utilisateurs
+
+#### Tables pour extension future (V2)
+- `quiz_player_class` : Classification des joueurs
+- `quiz_question_category` : Catégories principales des questions
+- `quiz_question_category_details` : Sous-catégories détaillées
+- `quiz_question_difficulte` : Niveaux de difficulté des questions
+
+### Connexion à la base de données
+
+Le fichier `config/database.php` gère la connexion à la base de données :
 
 ```php
-// Exemple de vérification dans AdminController
-private function ensureAdminAccess() {
-    if (!isset($_SESSION['user_id'])) {
-        header("Location: index.php?action=login");
-        exit();
-    }
+$db_host = "localhost";
+$db_name = "quiz_master";
+$db_user = "root";
+$db_pass = "";
 
-    $isAdmin = in_array($_SESSION['user_role'], ['admin', 'super_admin']);
-
-    if (!$isAdmin) {
-        $_SESSION['error'] = "Accès refusé. Vous devez être administrateur.";
-        header("Location: index.php?action=login");
-        exit();
-    }
+try {
+    $db = new PDO("mysql:host=$db_host;dbname=$db_name;charset=utf8", $db_user, $db_pass);
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Erreur de connexion : " . $e->getMessage());
 }
 ```
 
-## Gestion des formulaires
+## Authentification et sécurité
 
-Les formulaires suivent un cycle classique :
+### Authentification
 
-1. Affichage initial du formulaire
-2. Soumission par l'utilisateur (POST)
-3. Validation des données côté serveur
-4. En cas d'erreur : réaffichage du formulaire avec messages d'erreur
-5. En cas de succès : traitement et redirection
+Le système d'authentification utilise les sessions PHP. Le mot de passe est haché avec la fonction `password_hash()` :
 
-## Structure de la base de données détaillée
+```php
+// Enregistrement d'un utilisateur
+$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-### Table quiz_users
+// Vérification lors de la connexion
+if (password_verify($password, $user['password'])) {
+    $_SESSION['user_id'] = $user['id'];
+    $_SESSION['user_role'] = $user['role'];
+}
+```
 
-| Colonne       | Type         | Description                       |
-| ------------- | ------------ | --------------------------------- |
-| id            | INT          | Identifiant unique (clé primaire) |
-| name          | VARCHAR(50)  | Nom de l'utilisateur              |
-| first_name    | VARCHAR(50)  | Prénom de l'utilisateur           |
-| email         | VARCHAR(100) | Email (utilisé pour la connexion) |
-| password      | VARCHAR(255) | Mot de passe hashé                |
-| role          | VARCHAR(20)  | Rôle (player, admin, super_admin) |
-| Id_Avatar     | INT          | Référence vers l'avatar choisi    |
-| date_creation | DATETIME     | Date de création du compte        |
-| score         | INT          | Score total du joueur             |
+### Sécurité
 
-### Table quiz_question
+Les mesures de sécurité implémentées :
 
-| Colonne                | Type         | Description                              |
-| ---------------------- | ------------ | ---------------------------------------- |
-| Id_question            | INT          | Identifiant unique (clé primaire)        |
-| Id_question_category   | INT          | Catégorie de la question (clé étrangère) |
-| Id_admin_editor        | INT          | Admin qui a créé/édité la question       |
-| Id_question_difficulte | INT          | Niveau de difficulté (clé étrangère)     |
-| text                   | TEXT         | Texte de la question                     |
-| picture                | VARCHAR(255) | Chemin de l'image (optionnel)            |
-| date_creation          | DATETIME     | Date de création                         |
+- Utilisation de requêtes préparées pour éviter les injections SQL
+- Échappement des sorties HTML pour prévenir les attaques XSS
+- Validation des entrées utilisateur
+- Gestion des permissions et rôles utilisateur
+- Protection contre les attaques CSRF
 
-### Table quiz_question_answer
+## Front-end
 
-| Colonne            | Type    | Description                       |
-| ------------------ | ------- | --------------------------------- |
-| Id_question_answer | INT     | Identifiant unique (clé primaire) |
-| Id_question        | INT     | Question associée (clé étrangère) |
-| text               | TEXT    | Texte de la réponse               |
-| correct            | BOOLEAN | Indique si c'est la bonne réponse |
+### SCSS / CSS
+
+Le préprocesseur SCSS est utilisé pour organiser les styles de manière modulaire :
+
+- `_variables.scss` : Variables globales (couleurs, typographie)
+- `_layout.scss` : Structure générale des pages
+- `_form.scss` : Styles des formulaires
+- `_question_form.scss` : Styles spécifiques aux formulaires de questions
+- `_home.scss` : Styles de la page d'accueil
+
+Pour compiler les fichiers SCSS en CSS, un script de compilation est utilisé.
+
+### JavaScript
+
+Le JavaScript est organisé en modules :
+
+- `quiz.js` : Gestion des quiz et questions
+- `form-validation.js` : Validation des formulaires
+- `user-profile.js` : Fonctionnalités du profil utilisateur
+
+### API Web Share
+
+L'API Web Share est utilisée pour permettre le partage des résultats :
+
+```javascript
+if (navigator.share) {
+  navigator.share({
+    title: 'Mon résultat au quiz',
+    text: `J'ai obtenu ${score} points au quiz "${quizTitle}" sur Quiz Master Dev!`,
+    url: window.location.href,
+  })
+  .then(() => console.log('Partage réussi'))
+  .catch((error) => console.log('Erreur de partage', error));
+}
+```
+
+## Modèles principaux
+
+### UserModel
+
+Gère les utilisateurs (inscription, connexion, profil).
+
+### QuizModel
+
+Gère les quiz (création, modification, récupération).
+
+### QuestionModel
+
+Gère les questions et leurs réponses.
+
+### PlayerModel
+
+Gère les fonctionnalités spécifiques aux joueurs.
+
+## Contrôleurs principaux
+
+### UserController
+
+Gère l'authentification et les profils utilisateurs.
+
+### AdminController
+
+Gère les fonctionnalités d'administration.
+
+### QuizController
+
+Gère le déroulement des quiz, les questions et les résultats.
 
 ## Gestion des fichiers
 
-Les images téléchargées pour les questions sont stockées dans le dossier `uploads/questions/` avec un nom unique généré :
+Les images téléchargées pour les questions sont stockées dans le dossier `uploads/questions/` :
 
 ```php
-// Exemple de traitement d'upload d'image
-$uploadDir = realpath(dirname(__FILE__) . '/../uploads/questions') . '/';
+$uploadDir = 'uploads/questions/';
 $uniqueName = uniqid('quest_') . '.' . $extension;
 $uploadFilePath = $uploadDir . $uniqueName;
 
-if (move_uploaded_file($_FILES['picture_file']['tmp_name'], $uploadFilePath)) {
-    $picture = 'uploads/questions/' . $uniqueName;
+if (move_uploaded_file($_FILES['picture']['tmp_name'], $uploadFilePath)) {
+    $question['picture'] = $uploadFilePath;
 }
 ```
 
-## Styles et responsivité
+## Dépendances externes
 
-Le projet utilise SCSS pour une meilleure organisation du code CSS :
+- Bootstrap 4.5 : Framework CSS
+- jQuery 3.5 : Bibliothèque JavaScript
+- FontAwesome : Bibliothèque d'icônes
 
-- Les fichiers sources sont dans `public/scss/`
-- Ils sont compilés en CSS dans `public/css/`
-- Le design est responsive grâce à des media queries
+## Déploiement
 
-Structure SCSS :
-
-- `_variables.scss` : Variables globales (couleurs, typographie)
-- `_layout.scss` : Structure de page et grille
-- `_form.scss` : Styles des formulaires
-- `_question_form.scss` : Styles spécifiques aux formulaires de questions
-- Autres fichiers spécifiques...
-
-## Sécurité
-
-### Prévention contre les injections SQL
-
-Toutes les requêtes utilisent des requêtes préparées :
-
-```php
-$stmt = $this->db->prepare("SELECT * FROM quiz_users WHERE email = ?");
-$stmt->execute([$email]);
-```
-
-### Protection contre XSS
-
-Toutes les données affichées sont échappées :
-
-```php
-echo htmlspecialchars($variable);
-```
-
-### Hachage des mots de passe
-
-Les mots de passe sont sécurisés avec `password_hash()` :
-
-```php
-$hash = password_hash($password, PASSWORD_DEFAULT);
-```
-
-### Validation des formulaires
-
-Double validation côté client et serveur pour tous les formulaires.
-
-## Tests et débogage
-
-Le projet inclut des outils de débogage :
-
-- Logs d'erreur détaillés
-- Mode développement avec affichage des erreurs
-- Commentaires pour le code complexe
-
-## Optimisations
-
-Plusieurs optimisations sont appliquées :
-
-- Mise en cache des requêtes répétitives
-- Chargement conditionnel des ressources
-- Minification des fichiers CSS et JavaScript
-
-## Compatibilité navigateurs
-
-Le projet est testé et compatible avec :
-
-- Chrome 90+
-- Firefox 88+
-- Safari 14+
-- Edge 90+
-- Opera 76+
+Pour plus d'informations sur le déploiement, consultez le [Guide de déploiement](deploiement.md).

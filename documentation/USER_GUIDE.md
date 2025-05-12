@@ -1,177 +1,161 @@
-# Guide Utilisateur QUIZ-MASTER-DEV-2025
+# Guide Utilisateur - Quiz Master Dev 2025
 
-Ce guide vous accompagne dans l'utilisation de la plateforme QUIZ-MASTER-DEV-2025, à la fois en tant que joueur et administrateur.
+Ce guide vous accompagnera dans l'utilisation de la plateforme Quiz Master Dev, que vous soyez joueur ou administrateur.
+
+## Table des matières
+
+1. [Utilisation en tant que joueur](#utilisation-en-tant-que-joueur)
+   - [Inscription et connexion](#inscription-et-connexion)
+   - [Jouer à un quiz](#jouer-à-un-quiz)
+   - [Consulter vos résultats](#consulter-vos-résultats)
+   - [Personnaliser votre profil](#personnaliser-votre-profil)
+   - [Partager vos résultats](#partager-vos-résultats)
+
+2. [Utilisation en tant qu'administrateur](#utilisation-en-tant-dadministrateur)
+   - [Accéder à l'interface d'administration](#accéder-à-linterface-dadministration)
+   - [Gérer les questions](#gérer-les-questions)
+   - [Gérer les quiz](#gérer-les-quiz)
+   - [Gérer les catégories et niveaux de difficulté](#gérer-les-catégories-et-niveaux-de-difficulté)
+   - [Consulter les statistiques](#consulter-les-statistiques)
 
 ## Utilisation en tant que joueur
 
-### Créer un compte
+### Inscription et connexion
 
-1. Sur la page d'accueil, cliquez sur le bouton "S'inscrire"
-2. Remplissez le formulaire avec vos informations personnelles :
-   - Nom et prénom
-   - Adresse email (sera utilisée pour vous connecter)
-   - Mot de passe (minimum 8 caractères)
-   - Choisissez un avatar parmi ceux proposés
-3. Cliquez sur "Créer mon compte"
-4. Vous êtes automatiquement connecté et redirigé vers votre tableau de bord
+1. **Inscription**
+   - Sur la page d'accueil, cliquez sur le bouton "S'inscrire"
+   - Complétez le formulaire avec vos informations personnelles
+   - Choisissez un avatar parmi les options proposées
+   - Cliquez sur "Créer un compte"
 
-![Capture d'écran du formulaire d'inscription](../documentation/images/inscription.jpg)
-
-### Se connecter
-
-1. Sur la page d'accueil, cliquez sur "Connexion"
-2. Entrez votre email et mot de passe
-3. Cliquez sur "Se connecter"
-
-### Tableau de bord joueur
-
-Une fois connecté, vous accédez à votre tableau de bord qui présente :
-
-- Votre score global et statistiques
-- Les quiz récemment joués
-- Les quiz recommandés
-- Vos badges et récompenses (si disponibles)
-
-![Capture d'écran du tableau de bord joueur](../documentation/images/tableau_de_bord_joueur.jpg)
+2. **Connexion**
+   - Sur la page d'accueil, cliquez sur "Connexion"
+   - Entrez votre adresse email et votre mot de passe
+   - Cliquez sur "Se connecter"
 
 ### Jouer à un quiz
 
-1. Depuis votre tableau de bord, cliquez sur "Jouer à un quiz" ou sélectionnez un quiz spécifique
-2. Lisez les instructions et cliquez sur "Commencer"
-3. Pour chaque question :
-   - Lisez attentivement l'énoncé et observez l'image si présente
-   - Sélectionnez votre réponse parmi les options
+1. **Sélectionner un quiz**
+   - Depuis votre tableau de bord, cliquez sur "Jouer à un quiz"
+   - Parcourez la liste des quiz disponibles
+   - Vous pouvez filtrer par catégorie ou niveau de difficulté
+   - Cliquez sur "Jouer" à côté du quiz choisi
+
+2. **Répondre aux questions**
+   - Lisez attentivement chaque question
+   - Sélectionnez une réponse parmi les options proposées
    - Cliquez sur "Valider" pour passer à la question suivante
-4. À la fin du quiz, vous verrez :
-   - Votre score final
-   - Les réponses correctes
-   - Votre progression par rapport à vos tentatives précédentes
+   - Une fois toutes les questions répondues, vous verrez votre résultat
 
-![Capture d'écran d'une question de quiz](../documentation/images/question_quiz.jpg)
+### Consulter vos résultats
 
-### Modifier votre profil
+1. **Résultats immédiats**
+   - À la fin d'un quiz, vous verrez immédiatement :
+     - Votre score
+     - Les réponses correctes
+     - Le temps passé (si applicable)
 
-1. Cliquez sur votre avatar ou votre nom en haut de l'écran
-2. Sélectionnez "Modifier mon profil"
-3. Vous pouvez modifier :
-   - Vos informations personnelles (nom, prénom)
-   - Votre adresse email
-   - Votre mot de passe (laissez vide pour conserver l'ancien)
-   - Votre avatar
-4. Cliquez sur "Mettre à jour" pour enregistrer les modifications
+2. **Historique des résultats**
+   - Dans votre tableau de bord, cliquez sur "Mes résultats"
+   - Consultez l'historique de tous les quiz que vous avez complétés
+   - Visualisez vos statistiques globales (moyenne, meilleur score, etc.)
 
-### Consulter le classement
+### Personnaliser votre profil
 
-1. Depuis votre tableau de bord, cliquez sur "Classement"
-2. Visualisez le classement général des joueurs
-3. Vous pouvez filtrer par période (semaine, mois, tous les temps)
+1. **Modifier vos informations**
+   - Cliquez sur votre nom d'utilisateur en haut à droite
+   - Sélectionnez "Mon profil"
+   - Cliquez sur "Modifier le profil"
+   - Modifiez vos informations personnelles
+   - Choisissez un nouvel avatar si souhaité
+   - Cliquez sur "Enregistrer"
+
+### Partager vos résultats
+
+1. **Partager sur les réseaux sociaux**
+   - Après avoir terminé un quiz, cliquez sur "Partager mes résultats"
+   - Sélectionnez la plateforme de partage souhaitée
+   - Personnalisez votre message si nécessaire
+   - Publiez votre résultat
 
 ## Utilisation en tant qu'administrateur
 
-### Accéder à l'administration
+### Accéder à l'interface d'administration
 
-1. Connectez-vous avec un compte administrateur
-2. Vous êtes automatiquement redirigé vers le tableau de bord administrateur
-3. Si vous êtes déjà connecté en tant que joueur, cliquez sur votre nom puis "Administration"
-
-![Capture d'écran du tableau de bord admin](../documentation/images/tableau_de_bord_admin.jpg)
+1. **Connexion en tant qu'administrateur**
+   - Connectez-vous avec vos identifiants administrateur
+   - Vous serez automatiquement redirigé vers le tableau de bord administrateur
 
 ### Gérer les questions
 
-#### Ajouter une question
+1. **Voir toutes les questions**
+   - Dans le menu latéral, cliquez sur "Questions"
+   - Parcourez la liste des questions existantes
+   - Utilisez la recherche ou les filtres pour trouver une question spécifique
 
-1. Dans le menu latéral, cliquez sur "Questions" puis "Ajouter une question"
-2. Remplissez le formulaire :
-   - Texte de la question
-   - Choisissez une catégorie (HTML, CSS, JavaScript, etc.)
-   - Sélectionnez un niveau de difficulté
-   - Ajoutez une image (optionnel) soit par URL soit par téléchargement
-   - Entrez les réponses possibles (minimum 2)
-   - Indiquez quelle réponse est correcte
-3. Cliquez sur "Enregistrer"
+2. **Ajouter une question**
+   - Dans la section "Questions", cliquez sur "Ajouter une question"
+   - Remplissez le formulaire :
+     - Texte de la question
+     - Catégorie et niveau de difficulté (optionnels)
+     - Options de réponse (minimum 3)
+     - Indiquez la réponse correcte
+     - Ajoutez une image (optionnel)
+   - Cliquez sur "Enregistrer"
 
-![Capture d'écran du formulaire d'ajout de question](../documentation/images/ajout_question.jpg)
+3. **Modifier une question**
+   - Dans la liste des questions, cliquez sur "Modifier" à côté de la question souhaitée
+   - Modifiez les informations nécessaires
+   - Cliquez sur "Valider" pour sauvegarder
 
-#### Modifier une question
-
-1. Accédez à "Questions" puis "Liste des questions"
-2. Trouvez la question à modifier et cliquez sur "Modifier"
-3. Effectuez vos changements dans le formulaire
-4. Cliquez sur "Valider" pour sauvegarder
-
-#### Supprimer une question
-
-1. Dans la liste des questions, cliquez sur "Supprimer" à côté de la question concernée
-2. Confirmez la suppression dans la boîte de dialogue
+4. **Supprimer une question**
+   - Dans la liste des questions, cliquez sur "Supprimer" à côté de la question
+   - Confirmez la suppression
 
 ### Gérer les quiz
 
-#### Créer un quiz
+1. **Voir tous les quiz**
+   - Dans le menu latéral, cliquez sur "Quiz"
+   - Parcourez la liste des quiz existants
 
-1. Dans le menu administrateur, accédez à "Quiz" puis "Ajouter un quiz"
-2. Entrez un titre et une description
-3. Cliquez sur "Créer le quiz"
-4. Vous êtes redirigé vers la gestion des questions du quiz
+2. **Créer un quiz**
+   - Dans la section "Quiz", cliquez sur "Créer un quiz"
+   - Remplissez les informations de base (titre, description)
+   - Cliquez sur "Suivant" pour ajouter des questions
 
-#### Ajouter des questions à un quiz
+3. **Ajouter des questions à un quiz**
+   - Sélectionnez les questions à inclure dans le quiz
+   - Organisez l'ordre des questions si nécessaire
+   - Cliquez sur "Enregistrer"
 
-1. Dans la page de gestion du quiz, vous verrez deux listes :
-   - Questions déjà dans le quiz
-   - Questions disponibles à ajouter
-2. Pour ajouter une question, cliquez sur le bouton "+" à côté de celle-ci
-3. Pour retirer une question, cliquez sur le bouton "-"
-4. L'ordre des questions est modifiable par glisser-déposer
+4. **Modifier ou supprimer un quiz**
+   - Dans la liste des quiz, utilisez les boutons "Modifier" ou "Supprimer"
 
-![Capture d'écran de la gestion des questions d'un quiz](../documentation/images/gestion_quiz.jpg)
+### Gérer les catégories et niveaux de difficulté
 
-#### Modifier un quiz
+1. **Gérer les catégories**
+   - Dans le menu, accédez à "Catégories"
+   - Ajoutez, modifiez ou supprimez des catégories
+   - Chaque catégorie peut avoir un nom et une description
 
-1. Accédez à "Quiz" puis "Liste des quiz"
-2. Cliquez sur "Modifier" à côté du quiz concerné
-3. Changez le titre, la description ou le statut du quiz
-4. Cliquez sur "Enregistrer les modifications"
+2. **Gérer les niveaux de difficulté**
+   - Accédez à "Niveaux de difficulté"
+   - Ajoutez, modifiez ou supprimez des niveaux
+   - Chaque niveau peut avoir un nom et une valeur numérique
 
-### Gestion des utilisateurs
+### Consulter les statistiques
 
-#### Voir la liste des utilisateurs
+1. **Statistiques globales**
+   - Sur le tableau de bord, consultez les statistiques générales :
+     - Nombre total d'utilisateurs
+     - Nombre de quiz joués
+     - Score moyen
 
-1. Dans le menu admin, cliquez sur "Utilisateurs"
-2. Consultez la liste des joueurs et administrateurs
-3. Utilisez les filtres pour affiner la recherche
+2. **Statistiques détaillées**
+   - Accédez à la section "Statistiques"
+   - Consultez les performances par quiz, catégorie ou joueur
+   - Exportez les données si nécessaire
 
-#### Modifier un utilisateur
+## Assistance
 
-1. Cliquez sur "Modifier" à côté de l'utilisateur concerné
-2. Modifiez ses informations ou son rôle
-3. Cliquez sur "Enregistrer"
-
-#### Désactiver un compte
-
-1. Dans la liste des utilisateurs, cliquez sur "Désactiver"
-2. Le compte ne pourra plus se connecter jusqu'à réactivation
-
-### Statistiques et rapports
-
-1. Dans le menu administrateur, accédez à "Statistiques"
-2. Consultez les différentes métriques :
-   - Nombre de joueurs actifs
-   - Quiz les plus populaires
-   - Questions avec le meilleur/pire taux de réussite
-   - Évolution des inscriptions
-3. Exportez les données au format CSV si nécessaire
-
-## Astuces et conseils
-
-### Pour les joueurs
-
-- Commencez par les quiz de niveau facile pour vous familiariser avec la plateforme
-- Consultez les corrections après chaque quiz pour apprendre de vos erreurs
-- Rejouer régulièrement à un quiz vous aidera à mémoriser les concepts
-
-### Pour les administrateurs
-
-- Créez des questions claires et concises
-- Ajoutez des images pour illustrer les concepts complexes
-- Équilibrez les niveaux de difficulté dans chaque quiz
-- Vérifiez régulièrement les statistiques pour identifier les questions problématiques
-- Organisez les quiz par thématiques cohérentes
+Pour toute question ou problème concernant l'utilisation de Quiz Master Dev, veuillez contacter l'administrateur système à [email@example.com].

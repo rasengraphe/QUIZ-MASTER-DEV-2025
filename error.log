@@ -11277,3 +11277,823 @@ Stack trace:
 [10-May-2025 10:50:32 UTC] Debug DB: Tentative de connexion à la base de données
 [10-May-2025 10:50:32 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
 [10-May-2025 10:50:32 UTC] Debug DB: Connexion à la base de données réussie
+[10-May-2025 14:08:11 UTC] Debug DB: Tentative de connexion à la base de données
+[10-May-2025 14:08:11 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[10-May-2025 14:08:11 UTC] Debug DB: Connexion à la base de données réussie
+[10-May-2025 14:08:13 UTC] Debug DB: Tentative de connexion à la base de données
+[10-May-2025 14:08:13 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[10-May-2025 14:08:13 UTC] Debug DB: Connexion à la base de données réussie
+[10-May-2025 14:08:16 UTC] Debug DB: Tentative de connexion à la base de données
+[10-May-2025 14:08:16 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[10-May-2025 14:08:16 UTC] Debug DB: Connexion à la base de données réussie
+[10-May-2025 14:08:16 UTC] Tentative de connexion - Email: rasengraphe@gmail.com, Nom: Marchal
+[10-May-2025 14:08:16 UTC] Utilisateur trouvé: Array
+(
+    [id] => 8
+    [name] => Marchal
+    [first_name] => Sébastien
+    [email] => rasengraphe@gmail.com
+    [password] => $2y$10$73OGo0NL6EYT.96eB6pwTuiKUszawOWREYCUHnwYzr4ryiQxpo146
+    [role] => super_admin
+    [Id_Avatar] => 
+    [date_creation] => 2025-04-13 19:21:08
+    [last_login] => 2025-05-06 17:30:00
+)
+
+[10-May-2025 14:08:16 UTC] Debug DB: Tentative de connexion à la base de données
+[10-May-2025 14:08:16 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[10-May-2025 14:08:16 UTC] Debug DB: Connexion à la base de données réussie
+[10-May-2025 14:08:16 UTC] Admin Dashboard - Session: Array
+(
+    [user_id] => 8
+    [user_name] => Marchal
+    [user_role] => super_admin
+    [user_type] => admin
+    [admin_logged_in] => 1
+)
+
+[10-May-2025 14:08:19 UTC] Debug DB: Tentative de connexion à la base de données
+[10-May-2025 14:08:19 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[10-May-2025 14:08:19 UTC] Debug DB: Connexion à la base de données réussie
+[10-May-2025 14:08:19 UTC] indexQuestions appelée
+[10-May-2025 14:08:19 UTC] GET params: Array
+(
+    [action] => questions
+)
+
+[10-May-2025 14:08:25 UTC] Debug DB: Tentative de connexion à la base de données
+[10-May-2025 14:08:25 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[10-May-2025 14:08:25 UTC] Debug DB: Connexion à la base de données réussie
+[10-May-2025 14:08:27 UTC] Debug DB: Tentative de connexion à la base de données
+[10-May-2025 14:08:27 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[10-May-2025 14:08:27 UTC] Debug DB: Connexion à la base de données réussie
+[10-May-2025 14:08:27 UTC] Debug DB: Tentative de connexion à la base de données
+[10-May-2025 14:08:27 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[10-May-2025 14:08:27 UTC] Debug DB: Connexion à la base de données réussie
+[10-May-2025 14:08:27 UTC] indexQuestions appelée
+[10-May-2025 14:08:27 UTC] GET params: Array
+(
+    [action] => questions
+)
+
+[10-May-2025 14:08:27 UTC] Message de succès présent: Question supprimée avec succès.
+[10-May-2025 14:08:34 UTC] Debug DB: Tentative de connexion à la base de données
+[10-May-2025 14:08:34 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[10-May-2025 14:08:34 UTC] Debug DB: Connexion à la base de données réussie
+[10-May-2025 14:08:36 UTC] Debug DB: Tentative de connexion à la base de données
+[10-May-2025 14:08:36 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[10-May-2025 14:08:36 UTC] Debug DB: Connexion à la base de données réussie
+[10-May-2025 14:08:36 UTC] Debug DB: Tentative de connexion à la base de données
+[10-May-2025 14:08:36 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[10-May-2025 14:08:36 UTC] Debug DB: Connexion à la base de données réussie
+[10-May-2025 14:08:36 UTC] indexQuestions appelée
+[10-May-2025 14:08:36 UTC] GET params: Array
+(
+    [action] => questions
+)
+
+[10-May-2025 14:08:36 UTC] Message de succès présent: Question supprimée avec succès.
+[12-May-2025 20:17:02 UTC] Debug DB: Tentative de connexion à la base de données
+[12-May-2025 20:17:02 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[12-May-2025 20:17:02 UTC] Debug DB: Connexion à la base de données réussie
+[12-May-2025 20:17:07 UTC] Debug DB: Tentative de connexion à la base de données
+[12-May-2025 20:17:07 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[12-May-2025 20:17:07 UTC] Debug DB: Connexion à la base de données réussie
+[12-May-2025 20:17:13 UTC] Debug DB: Tentative de connexion à la base de données
+[12-May-2025 20:17:13 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[12-May-2025 20:17:13 UTC] Debug DB: Connexion à la base de données réussie
+[12-May-2025 20:17:13 UTC] Tentative de connexion - Email: rasengraphe@gmail.com, Nom: Marchal
+[12-May-2025 20:17:13 UTC] Utilisateur trouvé: Array
+(
+    [id] => 8
+    [name] => Marchal
+    [first_name] => Sébastien
+    [email] => rasengraphe@gmail.com
+    [password] => $2y$10$73OGo0NL6EYT.96eB6pwTuiKUszawOWREYCUHnwYzr4ryiQxpo146
+    [role] => super_admin
+    [Id_Avatar] => 
+    [date_creation] => 2025-04-13 19:21:08
+    [last_login] => 2025-05-06 17:30:00
+)
+
+[12-May-2025 20:17:13 UTC] Debug DB: Tentative de connexion à la base de données
+[12-May-2025 20:17:13 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[12-May-2025 20:17:13 UTC] Debug DB: Connexion à la base de données réussie
+[12-May-2025 20:17:13 UTC] Admin Dashboard - Session: Array
+(
+    [user_id] => 8
+    [user_name] => Marchal
+    [user_role] => super_admin
+    [user_type] => admin
+    [admin_logged_in] => 1
+)
+
+[12-May-2025 20:17:22 UTC] Debug DB: Tentative de connexion à la base de données
+[12-May-2025 20:17:22 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[12-May-2025 20:17:22 UTC] Debug DB: Connexion à la base de données réussie
+[12-May-2025 20:17:35 UTC] Debug DB: Tentative de connexion à la base de données
+[12-May-2025 20:17:35 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[12-May-2025 20:17:35 UTC] Debug DB: Connexion à la base de données réussie
+[12-May-2025 20:17:35 UTC] Debug handlePlayQuiz: Début de la méthode
+[12-May-2025 20:17:35 UTC] Debug handlePlayQuiz: Paramètres - theme=1, difficulty=1, questionCount=5
+[12-May-2025 20:17:35 UTC] PHP Warning:  Undefined variable $quizId in C:\wamp64\www\QUIZ-MASTER-DEV-2025\controllers\QuizController.php on line 298
+[12-May-2025 20:17:35 UTC] PHP Stack trace:
+[12-May-2025 20:17:35 UTC] PHP   1. {main}() C:\wamp64\www\QUIZ-MASTER-DEV-2025\index.php:0
+[12-May-2025 20:17:35 UTC] PHP   2. QuizController->handlePlayQuiz() C:\wamp64\www\QUIZ-MASTER-DEV-2025\index.php:77
+[12-May-2025 20:17:35 UTC] Erreur lors de l'ajout de la question 124 au quiz 130: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicata du champ '130-124' pour la clef 'quiz_quiz_questions.unique_quiz_question'
+[12-May-2025 20:17:35 UTC] Erreur lors de l'ajout de la question 124 au quiz 130: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicata du champ '130-124' pour la clef 'quiz_quiz_questions.unique_quiz_question'
+[12-May-2025 20:17:35 UTC] Erreur lors de l'ajout de la question 128 au quiz 130: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicata du champ '130-128' pour la clef 'quiz_quiz_questions.unique_quiz_question'
+[12-May-2025 20:17:35 UTC] Erreur lors de l'ajout de la question 128 au quiz 130: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicata du champ '130-128' pour la clef 'quiz_quiz_questions.unique_quiz_question'
+[12-May-2025 20:17:35 UTC] Erreur lors de l'ajout de la question 134 au quiz 130: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicata du champ '130-134' pour la clef 'quiz_quiz_questions.unique_quiz_question'
+[12-May-2025 20:17:35 UTC] Erreur lors de l'ajout de la question 134 au quiz 130: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicata du champ '130-134' pour la clef 'quiz_quiz_questions.unique_quiz_question'
+[12-May-2025 20:17:35 UTC] Erreur lors de l'ajout de la question 139 au quiz 130: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicata du champ '130-139' pour la clef 'quiz_quiz_questions.unique_quiz_question'
+[12-May-2025 20:17:35 UTC] Erreur lors de l'ajout de la question 139 au quiz 130: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicata du champ '130-139' pour la clef 'quiz_quiz_questions.unique_quiz_question'
+[12-May-2025 20:17:35 UTC] Erreur lors de l'ajout de la question 148 au quiz 130: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicata du champ '130-148' pour la clef 'quiz_quiz_questions.unique_quiz_question'
+[12-May-2025 20:17:35 UTC] Erreur lors de l'ajout de la question 148 au quiz 130: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicata du champ '130-148' pour la clef 'quiz_quiz_questions.unique_quiz_question'
+[12-May-2025 20:17:35 UTC] Debug DB: Tentative de connexion à la base de données
+[12-May-2025 20:17:35 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[12-May-2025 20:17:35 UTC] Debug DB: Connexion à la base de données réussie
+[12-May-2025 20:17:35 UTC] Debug play: Début avec ID=130
+[12-May-2025 20:17:35 UTC] Debug getQuizById: Tentative de récupération du quiz 130
+[12-May-2025 20:17:35 UTC] Debug getQuizById: Résultat=Array
+(
+    [id] => 130
+    [title] => Quiz personnalisé - 2025-05-12 20:17:35
+    [description] => Quiz généré automatiquement - Thème: 1, Difficulté: 1
+    [created_by] => 8
+    [created_at] => 2025-05-12 22:17:35
+    [updated_at] => 2025-05-12 22:17:35
+)
+
+[12-May-2025 20:17:35 UTC] Debug play: Quiz trouvé - Array
+(
+    [id] => 130
+    [title] => Quiz personnalisé - 2025-05-12 20:17:35
+    [description] => Quiz généré automatiquement - Thème: 1, Difficulté: 1
+    [created_by] => 8
+    [created_at] => 2025-05-12 22:17:35
+    [updated_at] => 2025-05-12 22:17:35
+)
+
+[12-May-2025 20:17:35 UTC] Debug play: Nombre de questions trouvées - 5
+[12-May-2025 20:17:35 UTC] Debug play: Réponses pour question 124 - 3
+[12-May-2025 20:17:35 UTC] Debug play: Réponses pour question 128 - 3
+[12-May-2025 20:17:35 UTC] Debug play: Réponses pour question 134 - 3
+[12-May-2025 20:17:35 UTC] Debug play: Réponses pour question 139 - 3
+[12-May-2025 20:17:35 UTC] Debug play: Réponses pour question 148 - 3
+[12-May-2025 20:17:35 UTC] Debug Play: Quiz ID reçu = 130
+[12-May-2025 20:17:35 UTC] Debug Play: Nombre de questions - 5
+[12-May-2025 20:17:35 UTC] Debug Play: Index question courante - 0
+[12-May-2025 20:17:35 UTC] Debug Play: Question courante - Array
+(
+    [Id_question] => 124
+    [Id_question_category] => 1
+    [Id_admin_editor] => 1
+    [Id_question_difficulte] => 1
+    [text] => Quelle est la balise HTML pour créer un lien?
+    [picture] => 
+    [date_creation] => 2025-05-06 14:57:38
+    [question_order] => 1
+    [answers] => Array
+        (
+            [0] => Array
+                (
+                    [Id_question_answer] => 341
+                    [text] => <a>
+                    [correct] => 1
+                )
+
+            [1] => Array
+                (
+                    [Id_question_answer] => 342
+                    [text] => <link>
+                    [correct] => 0
+                )
+
+            [2] => Array
+                (
+                    [Id_question_answer] => 343
+                    [text] => <href>
+                    [correct] => 0
+                )
+
+        )
+
+)
+
+[12-May-2025 20:17:40 UTC] Debug DB: Tentative de connexion à la base de données
+[12-May-2025 20:17:40 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[12-May-2025 20:17:40 UTC] Debug DB: Connexion à la base de données réussie
+[12-May-2025 20:17:40 UTC] Debug submitQuiz: Début de la méthode
+[12-May-2025 20:17:40 UTC] Debug submitQuiz: Session=Array
+(
+    [user_id] => 8
+    [user_name] => Marchal
+    [user_role] => super_admin
+    [user_type] => admin
+    [admin_logged_in] => 1
+    [success_message] => Quiz créé avec succès!
+    [quiz_id] => 130
+)
+
+[12-May-2025 20:17:40 UTC] Debug submitQuiz: POST=Array
+(
+    [quiz_id] => 130
+    [current_question_index] => 0
+    [answer] => 343
+)
+
+[12-May-2025 20:17:40 UTC] Debug submitQuiz: quizId=130, currentAnswer=343, currentQuestionIndex=0
+[12-May-2025 20:17:40 UTC] Debug getQuizById: Tentative de récupération du quiz 130
+[12-May-2025 20:17:40 UTC] Debug getQuizById: Résultat=Array
+(
+    [id] => 130
+    [title] => Quiz personnalisé - 2025-05-12 20:17:35
+    [description] => Quiz généré automatiquement - Thème: 1, Difficulté: 1
+    [created_by] => 8
+    [created_at] => 2025-05-12 22:17:35
+    [updated_at] => 2025-05-12 22:17:35
+)
+
+[12-May-2025 20:17:40 UTC] Debug submitQuiz: Quiz récupéré=Array
+(
+    [id] => 130
+    [title] => Quiz personnalisé - 2025-05-12 20:17:35
+    [description] => Quiz généré automatiquement - Thème: 1, Difficulté: 1
+    [created_by] => 8
+    [created_at] => 2025-05-12 22:17:35
+    [updated_at] => 2025-05-12 22:17:35
+)
+
+[12-May-2025 20:17:40 UTC] Debug submitQuiz: Réponse sauvegardée pour question 0: 343
+[12-May-2025 20:17:40 UTC] Debug submitQuiz: Nombre de questions trouvées: 5
+[12-May-2025 20:17:40 UTC] Debug submitQuiz: Réponses pour question 124: 3
+[12-May-2025 20:17:40 UTC] Debug submitQuiz: Réponses pour question 128: 3
+[12-May-2025 20:17:40 UTC] Debug submitQuiz: Réponses pour question 134: 3
+[12-May-2025 20:17:40 UTC] Debug submitQuiz: Réponses pour question 139: 3
+[12-May-2025 20:17:40 UTC] Debug submitQuiz: Réponses pour question 148: 3
+[12-May-2025 20:17:40 UTC] Debug submitQuiz: currentQuestionIndex=0, total questions=5
+[12-May-2025 20:17:40 UTC] Debug submitQuiz: Passage à la question suivante
+[12-May-2025 20:17:43 UTC] Debug DB: Tentative de connexion à la base de données
+[12-May-2025 20:17:43 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[12-May-2025 20:17:43 UTC] Debug DB: Connexion à la base de données réussie
+[12-May-2025 20:17:43 UTC] Debug submitQuiz: Début de la méthode
+[12-May-2025 20:17:43 UTC] Debug submitQuiz: Session=Array
+(
+    [user_id] => 8
+    [user_name] => Marchal
+    [user_role] => super_admin
+    [user_type] => admin
+    [admin_logged_in] => 1
+    [success_message] => Quiz créé avec succès!
+    [quiz_id] => 130
+    [quiz_answers] => Array
+        (
+            [0] => 343
+        )
+
+)
+
+[12-May-2025 20:17:43 UTC] Debug submitQuiz: POST=Array
+(
+    [quiz_id] => 130
+    [current_question_index] => 1
+    [answer] => 354
+)
+
+[12-May-2025 20:17:43 UTC] Debug submitQuiz: quizId=130, currentAnswer=354, currentQuestionIndex=1
+[12-May-2025 20:17:43 UTC] Debug getQuizById: Tentative de récupération du quiz 130
+[12-May-2025 20:17:43 UTC] Debug getQuizById: Résultat=Array
+(
+    [id] => 130
+    [title] => Quiz personnalisé - 2025-05-12 20:17:35
+    [description] => Quiz généré automatiquement - Thème: 1, Difficulté: 1
+    [created_by] => 8
+    [created_at] => 2025-05-12 22:17:35
+    [updated_at] => 2025-05-12 22:17:35
+)
+
+[12-May-2025 20:17:43 UTC] Debug submitQuiz: Quiz récupéré=Array
+(
+    [id] => 130
+    [title] => Quiz personnalisé - 2025-05-12 20:17:35
+    [description] => Quiz généré automatiquement - Thème: 1, Difficulté: 1
+    [created_by] => 8
+    [created_at] => 2025-05-12 22:17:35
+    [updated_at] => 2025-05-12 22:17:35
+)
+
+[12-May-2025 20:17:43 UTC] Debug submitQuiz: Réponse sauvegardée pour question 1: 354
+[12-May-2025 20:17:43 UTC] Debug submitQuiz: Nombre de questions trouvées: 5
+[12-May-2025 20:17:43 UTC] Debug submitQuiz: Réponses pour question 124: 3
+[12-May-2025 20:17:43 UTC] Debug submitQuiz: Réponses pour question 128: 3
+[12-May-2025 20:17:43 UTC] Debug submitQuiz: Réponses pour question 134: 3
+[12-May-2025 20:17:43 UTC] Debug submitQuiz: Réponses pour question 139: 3
+[12-May-2025 20:17:43 UTC] Debug submitQuiz: Réponses pour question 148: 3
+[12-May-2025 20:17:43 UTC] Debug submitQuiz: currentQuestionIndex=1, total questions=5
+[12-May-2025 20:17:43 UTC] Debug submitQuiz: Passage à la question suivante
+[12-May-2025 20:17:46 UTC] Debug DB: Tentative de connexion à la base de données
+[12-May-2025 20:17:46 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[12-May-2025 20:17:46 UTC] Debug DB: Connexion à la base de données réussie
+[12-May-2025 20:17:46 UTC] Debug submitQuiz: Début de la méthode
+[12-May-2025 20:17:46 UTC] Debug submitQuiz: Session=Array
+(
+    [user_id] => 8
+    [user_name] => Marchal
+    [user_role] => super_admin
+    [user_type] => admin
+    [admin_logged_in] => 1
+    [success_message] => Quiz créé avec succès!
+    [quiz_id] => 130
+    [quiz_answers] => Array
+        (
+            [0] => 343
+            [1] => 354
+        )
+
+)
+
+[12-May-2025 20:17:46 UTC] Debug submitQuiz: POST=Array
+(
+    [quiz_id] => 130
+    [current_question_index] => 2
+    [answer] => 373
+)
+
+[12-May-2025 20:17:46 UTC] Debug submitQuiz: quizId=130, currentAnswer=373, currentQuestionIndex=2
+[12-May-2025 20:17:46 UTC] Debug getQuizById: Tentative de récupération du quiz 130
+[12-May-2025 20:17:46 UTC] Debug getQuizById: Résultat=Array
+(
+    [id] => 130
+    [title] => Quiz personnalisé - 2025-05-12 20:17:35
+    [description] => Quiz généré automatiquement - Thème: 1, Difficulté: 1
+    [created_by] => 8
+    [created_at] => 2025-05-12 22:17:35
+    [updated_at] => 2025-05-12 22:17:35
+)
+
+[12-May-2025 20:17:46 UTC] Debug submitQuiz: Quiz récupéré=Array
+(
+    [id] => 130
+    [title] => Quiz personnalisé - 2025-05-12 20:17:35
+    [description] => Quiz généré automatiquement - Thème: 1, Difficulté: 1
+    [created_by] => 8
+    [created_at] => 2025-05-12 22:17:35
+    [updated_at] => 2025-05-12 22:17:35
+)
+
+[12-May-2025 20:17:46 UTC] Debug submitQuiz: Réponse sauvegardée pour question 2: 373
+[12-May-2025 20:17:46 UTC] Debug submitQuiz: Nombre de questions trouvées: 5
+[12-May-2025 20:17:46 UTC] Debug submitQuiz: Réponses pour question 124: 3
+[12-May-2025 20:17:46 UTC] Debug submitQuiz: Réponses pour question 128: 3
+[12-May-2025 20:17:46 UTC] Debug submitQuiz: Réponses pour question 134: 3
+[12-May-2025 20:17:46 UTC] Debug submitQuiz: Réponses pour question 139: 3
+[12-May-2025 20:17:46 UTC] Debug submitQuiz: Réponses pour question 148: 3
+[12-May-2025 20:17:46 UTC] Debug submitQuiz: currentQuestionIndex=2, total questions=5
+[12-May-2025 20:17:46 UTC] Debug submitQuiz: Passage à la question suivante
+[12-May-2025 20:17:51 UTC] Debug DB: Tentative de connexion à la base de données
+[12-May-2025 20:17:51 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[12-May-2025 20:17:51 UTC] Debug DB: Connexion à la base de données réussie
+[12-May-2025 20:17:51 UTC] Debug submitQuiz: Début de la méthode
+[12-May-2025 20:17:51 UTC] Debug submitQuiz: Session=Array
+(
+    [user_id] => 8
+    [user_name] => Marchal
+    [user_role] => super_admin
+    [user_type] => admin
+    [admin_logged_in] => 1
+    [success_message] => Quiz créé avec succès!
+    [quiz_id] => 130
+    [quiz_answers] => Array
+        (
+            [0] => 343
+            [1] => 354
+            [2] => 373
+        )
+
+)
+
+[12-May-2025 20:17:51 UTC] Debug submitQuiz: POST=Array
+(
+    [quiz_id] => 130
+    [current_question_index] => 3
+    [answer] => 523
+)
+
+[12-May-2025 20:17:51 UTC] Debug submitQuiz: quizId=130, currentAnswer=523, currentQuestionIndex=3
+[12-May-2025 20:17:51 UTC] Debug getQuizById: Tentative de récupération du quiz 130
+[12-May-2025 20:17:51 UTC] Debug getQuizById: Résultat=Array
+(
+    [id] => 130
+    [title] => Quiz personnalisé - 2025-05-12 20:17:35
+    [description] => Quiz généré automatiquement - Thème: 1, Difficulté: 1
+    [created_by] => 8
+    [created_at] => 2025-05-12 22:17:35
+    [updated_at] => 2025-05-12 22:17:35
+)
+
+[12-May-2025 20:17:51 UTC] Debug submitQuiz: Quiz récupéré=Array
+(
+    [id] => 130
+    [title] => Quiz personnalisé - 2025-05-12 20:17:35
+    [description] => Quiz généré automatiquement - Thème: 1, Difficulté: 1
+    [created_by] => 8
+    [created_at] => 2025-05-12 22:17:35
+    [updated_at] => 2025-05-12 22:17:35
+)
+
+[12-May-2025 20:17:51 UTC] Debug submitQuiz: Réponse sauvegardée pour question 3: 523
+[12-May-2025 20:17:51 UTC] Debug submitQuiz: Nombre de questions trouvées: 5
+[12-May-2025 20:17:51 UTC] Debug submitQuiz: Réponses pour question 124: 3
+[12-May-2025 20:17:51 UTC] Debug submitQuiz: Réponses pour question 128: 3
+[12-May-2025 20:17:51 UTC] Debug submitQuiz: Réponses pour question 134: 3
+[12-May-2025 20:17:51 UTC] Debug submitQuiz: Réponses pour question 139: 3
+[12-May-2025 20:17:51 UTC] Debug submitQuiz: Réponses pour question 148: 3
+[12-May-2025 20:17:51 UTC] Debug submitQuiz: currentQuestionIndex=3, total questions=5
+[12-May-2025 20:17:51 UTC] Debug submitQuiz: Passage à la question suivante
+[12-May-2025 20:17:56 UTC] Debug DB: Tentative de connexion à la base de données
+[12-May-2025 20:17:56 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[12-May-2025 20:17:56 UTC] Debug DB: Connexion à la base de données réussie
+[12-May-2025 20:17:56 UTC] Debug submitQuiz: Début de la méthode
+[12-May-2025 20:17:56 UTC] Debug submitQuiz: Session=Array
+(
+    [user_id] => 8
+    [user_name] => Marchal
+    [user_role] => super_admin
+    [user_type] => admin
+    [admin_logged_in] => 1
+    [success_message] => Quiz créé avec succès!
+    [quiz_id] => 130
+    [quiz_answers] => Array
+        (
+            [0] => 343
+            [1] => 354
+            [2] => 373
+            [3] => 523
+        )
+
+)
+
+[12-May-2025 20:17:56 UTC] Debug submitQuiz: POST=Array
+(
+    [quiz_id] => 130
+    [current_question_index] => 4
+    [answer] => 544
+)
+
+[12-May-2025 20:17:56 UTC] Debug submitQuiz: quizId=130, currentAnswer=544, currentQuestionIndex=4
+[12-May-2025 20:17:56 UTC] Debug getQuizById: Tentative de récupération du quiz 130
+[12-May-2025 20:17:56 UTC] Debug getQuizById: Résultat=Array
+(
+    [id] => 130
+    [title] => Quiz personnalisé - 2025-05-12 20:17:35
+    [description] => Quiz généré automatiquement - Thème: 1, Difficulté: 1
+    [created_by] => 8
+    [created_at] => 2025-05-12 22:17:35
+    [updated_at] => 2025-05-12 22:17:35
+)
+
+[12-May-2025 20:17:56 UTC] Debug submitQuiz: Quiz récupéré=Array
+(
+    [id] => 130
+    [title] => Quiz personnalisé - 2025-05-12 20:17:35
+    [description] => Quiz généré automatiquement - Thème: 1, Difficulté: 1
+    [created_by] => 8
+    [created_at] => 2025-05-12 22:17:35
+    [updated_at] => 2025-05-12 22:17:35
+)
+
+[12-May-2025 20:17:56 UTC] Debug submitQuiz: Réponse sauvegardée pour question 4: 544
+[12-May-2025 20:17:56 UTC] Debug submitQuiz: Nombre de questions trouvées: 5
+[12-May-2025 20:17:56 UTC] Debug submitQuiz: Réponses pour question 124: 3
+[12-May-2025 20:17:56 UTC] Debug submitQuiz: Réponses pour question 128: 3
+[12-May-2025 20:17:56 UTC] Debug submitQuiz: Réponses pour question 134: 3
+[12-May-2025 20:17:56 UTC] Debug submitQuiz: Réponses pour question 139: 3
+[12-May-2025 20:17:56 UTC] Debug submitQuiz: Réponses pour question 148: 3
+[12-May-2025 20:17:56 UTC] Debug submitQuiz: currentQuestionIndex=4, total questions=5
+[12-May-2025 20:17:56 UTC] Debug submitQuiz: Dernière question atteinte, calcul des résultats
+[12-May-2025 20:17:56 UTC] Debug DB: Tentative de connexion à la base de données
+[12-May-2025 20:17:56 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[12-May-2025 20:17:56 UTC] Debug DB: Connexion à la base de données réussie
+[12-May-2025 20:17:56 UTC] Debug showResults: Début de la méthode
+[12-May-2025 20:17:56 UTC] Debug showResults: Session=Array
+(
+    [user_id] => 8
+    [user_name] => Marchal
+    [user_role] => super_admin
+    [user_type] => admin
+    [admin_logged_in] => 1
+    [success_message] => Quiz créé avec succès!
+    [quiz_id] => 130
+    [quiz_answers] => Array
+        (
+            [0] => 343
+            [1] => 354
+            [2] => 373
+            [3] => 523
+            [4] => 544
+        )
+
+)
+
+[12-May-2025 20:17:56 UTC] Debug getQuizById: Tentative de récupération du quiz 130
+[12-May-2025 20:17:56 UTC] Debug getQuizById: Résultat=Array
+(
+    [id] => 130
+    [title] => Quiz personnalisé - 2025-05-12 20:17:35
+    [description] => Quiz généré automatiquement - Thème: 1, Difficulté: 1
+    [created_by] => 8
+    [created_at] => 2025-05-12 22:17:35
+    [updated_at] => 2025-05-12 22:17:35
+)
+
+[12-May-2025 20:17:56 UTC] Debug showResults: Score=0, Total=5, Percentage=0
+[12-May-2025 20:17:56 UTC] Debug showResults: Questions=Array
+(
+    [0] => Array
+        (
+            [question] => Quelle est la balise HTML pour créer un lien?
+            [correct] => 
+            [correctAnswer] => Quelle est la balise HTML pour créer un lien?
+        )
+
+    [1] => Array
+        (
+            [question] => Quelle est la balise HTML pour créer un lien?
+            [correct] => 
+            [correctAnswer] => Quelle est la balise HTML pour créer un lien?
+        )
+
+    [2] => Array
+        (
+            [question] => Quelle est la balise HTML pour créer un lien?
+            [correct] => 
+            [correctAnswer] => Quelle est la balise HTML pour créer un lien?
+        )
+
+    [3] => Array
+        (
+            [question] => fgfg20000000
+            [correct] => 
+            [correctAnswer] => fgfg20000000
+        )
+
+    [4] => Array
+        (
+            [question] => belle de nuit
+            [correct] => 
+            [correctAnswer] => belle de nuit
+        )
+
+)
+
+[12-May-2025 20:18:20 UTC] Debug DB: Tentative de connexion à la base de données
+[12-May-2025 20:18:20 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[12-May-2025 20:18:20 UTC] Debug DB: Connexion à la base de données réussie
+[12-May-2025 20:18:20 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\wamp64\www\QUIZ-MASTER-DEV-2025\controllers\UserController.php on line 270
+[12-May-2025 20:18:20 UTC] PHP Stack trace:
+[12-May-2025 20:18:20 UTC] PHP   1. {main}() C:\wamp64\www\QUIZ-MASTER-DEV-2025\index.php:0
+[12-May-2025 20:18:20 UTC] PHP   2. UserController->logout() C:\wamp64\www\QUIZ-MASTER-DEV-2025\index.php:43
+[12-May-2025 20:18:20 UTC] PHP   3. session_start() C:\wamp64\www\QUIZ-MASTER-DEV-2025\controllers\UserController.php:270
+[12-May-2025 20:18:20 UTC] Debug DB: Tentative de connexion à la base de données
+[12-May-2025 20:18:20 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[12-May-2025 20:18:20 UTC] Debug DB: Connexion à la base de données réussie
+[12-May-2025 20:18:27 UTC] Debug DB: Tentative de connexion à la base de données
+[12-May-2025 20:18:27 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[12-May-2025 20:18:27 UTC] Debug DB: Connexion à la base de données réussie
+[12-May-2025 20:18:34 UTC] Debug DB: Tentative de connexion à la base de données
+[12-May-2025 20:18:34 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[12-May-2025 20:18:34 UTC] Debug DB: Connexion à la base de données réussie
+[12-May-2025 20:18:39 UTC] Debug DB: Tentative de connexion à la base de données
+[12-May-2025 20:18:39 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[12-May-2025 20:18:39 UTC] Debug DB: Connexion à la base de données réussie
+[12-May-2025 20:19:14 UTC] Debug DB: Tentative de connexion à la base de données
+[12-May-2025 20:19:14 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[12-May-2025 20:19:14 UTC] Debug DB: Connexion à la base de données réussie
+[12-May-2025 20:19:26 UTC] Debug DB: Tentative de connexion à la base de données
+[12-May-2025 20:19:26 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[12-May-2025 20:19:26 UTC] Debug DB: Connexion à la base de données réussie
+[12-May-2025 20:19:26 UTC] Tentative de connexion - Email: i@gmail.com, Nom: KK
+[12-May-2025 20:19:26 UTC] Utilisateur trouvé: Array
+(
+    [id] => 7
+    [name] => KK
+    [first_name] => mimi
+    [email] => i@gmail.com
+    [password] => $2y$10$ZHpnR8a34tteaT3RRijg6u0qzABRLqiPyxwiRiVWWOGBg2.WGlUq.
+    [role] => player
+    [Id_Avatar] => 3
+    [date_creation] => 2025-05-02 10:40:22
+    [last_login] => 
+)
+
+[12-May-2025 20:19:26 UTC] Debug DB: Tentative de connexion à la base de données
+[12-May-2025 20:19:26 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[12-May-2025 20:19:26 UTC] Debug DB: Connexion à la base de données réussie
+[12-May-2025 20:19:26 UTC] Debug getPlayerById: Début de la récupération du joueur ID=7
+[12-May-2025 20:19:26 UTC] Debug getPlayerById: Résultat de la requête - Joueur trouvé
+[12-May-2025 20:19:26 UTC] Debug getPlayerById: Données du joueur - Array
+(
+    [id] => 7
+    [name] => KK
+    [first_name] => mimi
+    [email] => i@gmail.com
+    [password] => $2y$10$ZHpnR8a34tteaT3RRijg6u0qzABRLqiPyxwiRiVWWOGBg2.WGlUq.
+    [role] => player
+    [Id_Avatar] => 3
+    [date_creation] => 2025-05-02 10:40:22
+    [last_login] => 
+)
+
+[12-May-2025 20:19:26 UTC] Debug getPlayerStats: Début de la récupération des stats pour ID=7
+[12-May-2025 20:19:26 UTC] Debug getPlayerStats: Résultat brut - Array
+(
+    [total_games] => 6
+    [total_score] => 7
+    [avg_score] => 1.1667
+    [best_score] => 2
+)
+
+[12-May-2025 20:19:26 UTC] Debug getPlayerStats: Stats finales - Array
+(
+    [total_games] => 6
+    [total_score] => 7
+    [avg_score] => 1.2
+    [best_score] => 2
+)
+
+[12-May-2025 20:19:37 UTC] Debug DB: Tentative de connexion à la base de données
+[12-May-2025 20:19:37 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[12-May-2025 20:19:37 UTC] Debug DB: Connexion à la base de données réussie
+[12-May-2025 20:19:46 UTC] Debug DB: Tentative de connexion à la base de données
+[12-May-2025 20:19:46 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[12-May-2025 20:19:46 UTC] Debug DB: Connexion à la base de données réussie
+[12-May-2025 20:19:46 UTC] Debug handlePlayQuiz: Début de la méthode
+[12-May-2025 20:19:46 UTC] Debug handlePlayQuiz: Paramètres - theme=1, difficulty=1, questionCount=5
+[12-May-2025 20:19:46 UTC] PHP Warning:  Undefined variable $quizId in C:\wamp64\www\QUIZ-MASTER-DEV-2025\controllers\QuizController.php on line 298
+[12-May-2025 20:19:46 UTC] PHP Stack trace:
+[12-May-2025 20:19:46 UTC] PHP   1. {main}() C:\wamp64\www\QUIZ-MASTER-DEV-2025\index.php:0
+[12-May-2025 20:19:46 UTC] PHP   2. QuizController->handlePlayQuiz() C:\wamp64\www\QUIZ-MASTER-DEV-2025\index.php:77
+[12-May-2025 20:19:46 UTC] Erreur lors de l'ajout de la question 86 au quiz 131: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicata du champ '131-86' pour la clef 'quiz_quiz_questions.unique_quiz_question'
+[12-May-2025 20:19:46 UTC] Erreur lors de l'ajout de la question 86 au quiz 131: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicata du champ '131-86' pour la clef 'quiz_quiz_questions.unique_quiz_question'
+[12-May-2025 20:19:46 UTC] Erreur lors de l'ajout de la question 87 au quiz 131: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicata du champ '131-87' pour la clef 'quiz_quiz_questions.unique_quiz_question'
+[12-May-2025 20:19:46 UTC] Erreur lors de l'ajout de la question 87 au quiz 131: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicata du champ '131-87' pour la clef 'quiz_quiz_questions.unique_quiz_question'
+[12-May-2025 20:19:46 UTC] Erreur lors de l'ajout de la question 125 au quiz 131: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicata du champ '131-125' pour la clef 'quiz_quiz_questions.unique_quiz_question'
+[12-May-2025 20:19:46 UTC] Erreur lors de l'ajout de la question 125 au quiz 131: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicata du champ '131-125' pour la clef 'quiz_quiz_questions.unique_quiz_question'
+[12-May-2025 20:19:46 UTC] Erreur lors de l'ajout de la question 137 au quiz 131: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicata du champ '131-137' pour la clef 'quiz_quiz_questions.unique_quiz_question'
+[12-May-2025 20:19:46 UTC] Erreur lors de l'ajout de la question 137 au quiz 131: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicata du champ '131-137' pour la clef 'quiz_quiz_questions.unique_quiz_question'
+[12-May-2025 20:19:46 UTC] Erreur lors de l'ajout de la question 139 au quiz 131: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicata du champ '131-139' pour la clef 'quiz_quiz_questions.unique_quiz_question'
+[12-May-2025 20:19:46 UTC] Erreur lors de l'ajout de la question 139 au quiz 131: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicata du champ '131-139' pour la clef 'quiz_quiz_questions.unique_quiz_question'
+[12-May-2025 20:19:46 UTC] Debug DB: Tentative de connexion à la base de données
+[12-May-2025 20:19:46 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[12-May-2025 20:19:46 UTC] Debug DB: Connexion à la base de données réussie
+[12-May-2025 20:19:46 UTC] Debug play: Début avec ID=131
+[12-May-2025 20:19:46 UTC] Debug getQuizById: Tentative de récupération du quiz 131
+[12-May-2025 20:19:46 UTC] Debug getQuizById: Résultat=Array
+(
+    [id] => 131
+    [title] => Quiz personnalisé - 2025-05-12 20:19:46
+    [description] => Quiz généré automatiquement - Thème: 1, Difficulté: 1
+    [created_by] => 7
+    [created_at] => 2025-05-12 22:19:46
+    [updated_at] => 2025-05-12 22:19:46
+)
+
+[12-May-2025 20:19:46 UTC] Debug play: Quiz trouvé - Array
+(
+    [id] => 131
+    [title] => Quiz personnalisé - 2025-05-12 20:19:46
+    [description] => Quiz généré automatiquement - Thème: 1, Difficulté: 1
+    [created_by] => 7
+    [created_at] => 2025-05-12 22:19:46
+    [updated_at] => 2025-05-12 22:19:46
+)
+
+[12-May-2025 20:19:46 UTC] Debug play: Nombre de questions trouvées - 5
+[12-May-2025 20:19:46 UTC] Debug play: Réponses pour question 86 - 3
+[12-May-2025 20:19:46 UTC] Debug play: Réponses pour question 87 - 3
+[12-May-2025 20:19:46 UTC] Debug play: Réponses pour question 125 - 3
+[12-May-2025 20:19:46 UTC] Debug play: Réponses pour question 137 - 3
+[12-May-2025 20:19:46 UTC] Debug play: Réponses pour question 139 - 3
+[12-May-2025 20:19:46 UTC] Debug Play: Quiz ID reçu = 131
+[12-May-2025 20:19:46 UTC] Debug Play: Nombre de questions - 5
+[12-May-2025 20:19:46 UTC] Debug Play: Index question courante - 0
+[12-May-2025 20:19:46 UTC] Debug Play: Question courante - Array
+(
+    [Id_question] => 86
+    [Id_question_category] => 1
+    [Id_admin_editor] => 8
+    [Id_question_difficulte] => 1
+    [text] => Comment définir un titre de page en HTML ?
+    [picture] => https://www.w3.org/html/logo/downloads/HTML5_Badge_512.png
+    [date_creation] => 2025-05-06 13:23:31
+    [question_order] => 1
+    [answers] => Array
+        (
+            [0] => Array
+                (
+                    [Id_question_answer] => 224
+                    [text] => <title>Mon titre</title>
+                    [correct] => 1
+                )
+
+            [1] => Array
+                (
+                    [Id_question_answer] => 225
+                    [text] => <header>Mon titre</header>
+                    [correct] => 0
+                )
+
+            [2] => Array
+                (
+                    [Id_question_answer] => 226
+                    [text] => <heading>Mon titre</heading>
+                    [correct] => 0
+                )
+
+        )
+
+)
+
+[12-May-2025 20:19:56 UTC] Debug DB: Tentative de connexion à la base de données
+[12-May-2025 20:19:56 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[12-May-2025 20:19:56 UTC] Debug DB: Connexion à la base de données réussie
+[12-May-2025 20:19:56 UTC] Debug getPlayerById: Début de la récupération du joueur ID=7
+[12-May-2025 20:19:56 UTC] Debug getPlayerById: Résultat de la requête - Joueur trouvé
+[12-May-2025 20:19:56 UTC] Debug getPlayerById: Données du joueur - Array
+(
+    [id] => 7
+    [name] => KK
+    [first_name] => mimi
+    [email] => i@gmail.com
+    [password] => $2y$10$ZHpnR8a34tteaT3RRijg6u0qzABRLqiPyxwiRiVWWOGBg2.WGlUq.
+    [role] => player
+    [Id_Avatar] => 3
+    [date_creation] => 2025-05-02 10:40:22
+    [last_login] => 
+)
+
+[12-May-2025 20:19:56 UTC] Debug getPlayerStats: Début de la récupération des stats pour ID=7
+[12-May-2025 20:19:56 UTC] Debug getPlayerStats: Résultat brut - Array
+(
+    [total_games] => 6
+    [total_score] => 7
+    [avg_score] => 1.1667
+    [best_score] => 2
+)
+
+[12-May-2025 20:19:56 UTC] Debug getPlayerStats: Stats finales - Array
+(
+    [total_games] => 6
+    [total_score] => 7
+    [avg_score] => 1.2
+    [best_score] => 2
+)
+
+[12-May-2025 20:20:08 UTC] Debug DB: Tentative de connexion à la base de données
+[12-May-2025 20:20:08 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[12-May-2025 20:20:08 UTC] Debug DB: Connexion à la base de données réussie
+[12-May-2025 20:20:08 UTC] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\wamp64\www\QUIZ-MASTER-DEV-2025\controllers\UserController.php on line 270
+[12-May-2025 20:20:08 UTC] PHP Stack trace:
+[12-May-2025 20:20:08 UTC] PHP   1. {main}() C:\wamp64\www\QUIZ-MASTER-DEV-2025\index.php:0
+[12-May-2025 20:20:08 UTC] PHP   2. UserController->logout() C:\wamp64\www\QUIZ-MASTER-DEV-2025\index.php:43
+[12-May-2025 20:20:08 UTC] PHP   3. session_start() C:\wamp64\www\QUIZ-MASTER-DEV-2025\controllers\UserController.php:270
+[12-May-2025 20:20:08 UTC] Debug DB: Tentative de connexion à la base de données
+[12-May-2025 20:20:08 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[12-May-2025 20:20:08 UTC] Debug DB: Connexion à la base de données réussie
+[12-May-2025 20:20:14 UTC] Debug DB: Tentative de connexion à la base de données
+[12-May-2025 20:20:14 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[12-May-2025 20:20:14 UTC] Debug DB: Connexion à la base de données réussie
+[12-May-2025 20:20:20 UTC] Debug DB: Tentative de connexion à la base de données
+[12-May-2025 20:20:20 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[12-May-2025 20:20:20 UTC] Debug DB: Connexion à la base de données réussie
+[12-May-2025 20:20:23 UTC] Debug DB: Tentative de connexion à la base de données
+[12-May-2025 20:20:23 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[12-May-2025 20:20:23 UTC] Debug DB: Connexion à la base de données réussie
+[12-May-2025 20:29:34 UTC] Debug DB: Tentative de connexion à la base de données
+[12-May-2025 20:29:34 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[12-May-2025 20:29:34 UTC] Debug DB: Connexion à la base de données réussie
+[12-May-2025 20:29:44 UTC] Debug DB: Tentative de connexion à la base de données
+[12-May-2025 20:29:44 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[12-May-2025 20:29:44 UTC] Debug DB: Connexion à la base de données réussie
+[12-May-2025 20:29:58 UTC] Debug DB: Tentative de connexion à la base de données
+[12-May-2025 20:29:58 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[12-May-2025 20:29:58 UTC] Debug DB: Connexion à la base de données réussie
+[12-May-2025 20:33:14 UTC] Debug DB: Tentative de connexion à la base de données
+[12-May-2025 20:33:14 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[12-May-2025 20:33:14 UTC] Debug DB: Connexion à la base de données réussie
+[12-May-2025 20:33:17 UTC] Debug DB: Tentative de connexion à la base de données
+[12-May-2025 20:33:17 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[12-May-2025 20:33:17 UTC] Debug DB: Connexion à la base de données réussie
+[12-May-2025 20:33:19 UTC] Debug DB: Tentative de connexion à la base de données
+[12-May-2025 20:33:19 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[12-May-2025 20:33:19 UTC] Debug DB: Connexion à la base de données réussie
+[12-May-2025 20:40:46 UTC] Debug DB: Tentative de connexion à la base de données
+[12-May-2025 20:40:46 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[12-May-2025 20:40:46 UTC] Debug DB: Connexion à la base de données réussie
+[12-May-2025 20:41:13 UTC] Debug DB: Tentative de connexion à la base de données
+[12-May-2025 20:41:13 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[12-May-2025 20:41:13 UTC] Debug DB: Connexion à la base de données réussie
+[12-May-2025 20:41:30 UTC] Debug DB: Tentative de connexion à la base de données
+[12-May-2025 20:41:30 UTC] Debug DB: Host=localhost, Database=quizdb, User=root
+[12-May-2025 20:41:30 UTC] Debug DB: Connexion à la base de données réussie

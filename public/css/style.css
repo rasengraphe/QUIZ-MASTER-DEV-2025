@@ -2472,6 +2472,109 @@ footer {
   text-align: center;
 }
 
+.auth-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 0 15px;
+}
+@media (max-width: 750px) {
+  .auth-container {
+    max-width: 90%;
+    padding: 0 10px;
+  }
+}
+
+.register-form-container {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+}
+@media (max-width: 750px) {
+  .register-form-container {
+    padding: 1.75rem;
+    width: 80%;
+  }
+}
+@media (max-width: 576px) {
+  .register-form-container {
+    padding: 1.5rem;
+  }
+}
+
+.form-header {
+  margin-bottom: 2rem;
+}
+@media (max-width: 576px) {
+  .form-header h1 {
+    font-size: 1.5rem;
+  }
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+@media (max-width: 750px) {
+  .form-group {
+    margin-bottom: 1.2rem;
+  }
+}
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+@media (max-width: 750px) {
+  .form-group label {
+    font-size: 0.95rem;
+  }
+}
+@media (max-width: 400px) {
+  .form-group label {
+    font-size: 0.9rem;
+  }
+}
+.form-group input[type=text],
+.form-group input[type=email],
+.form-group input[type=password] {
+  width: 90%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (max-width: 750px) {
+  .form-group input[type=text],
+  .form-group input[type=email],
+  .form-group input[type=password] {
+    padding: 0.7rem;
+    font-size: 0.95rem;
+    width: 95%;
+  }
+}
+
+.avatar-selection {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+@media (max-width: 750px) {
+  .avatar-selection {
+    gap: 8px;
+  }
+}
+@media (max-width: 400px) {
+  .avatar-selection {
+    gap: 5px;
+  }
+}
+
 .avatar-grid {
   display: flex;
   flex-direction: row;
@@ -2489,32 +2592,111 @@ footer {
   position: relative;
   margin: 0 5px;
 }
-
 .avatar-option input[type=radio] {
   position: absolute;
   opacity: 0;
   width: 0;
   height: 0;
 }
-
 .avatar-option label {
   cursor: pointer;
   display: inline-block;
 }
 
 .avatar-preview {
-  width: 35px;
-  height: 35px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   border: 2px solid transparent;
   transition: all 0.2s;
   display: block;
 }
+@media (max-width: 750px) {
+  .avatar-preview {
+    width: 55px;
+    height: 55px;
+  }
+}
+@media (max-width: 576px) {
+  .avatar-preview {
+    width: 50px;
+    height: 50px;
+  }
+}
+@media (max-width: 400px) {
+  .avatar-preview {
+    width: 40px;
+    height: 40px;
+  }
+}
 
 .avatar-option input[type=radio]:checked + label .avatar-preview {
   border-color: #0071e3;
-  box-shadow: 0 0 0 1px #0071e3;
-  transform: scale(1.1);
+  box-shadow: 0 0 0 2px rgba(0, 113, 227, 0.3);
+  transform: scale(1.05);
+}
+
+.form-actions {
+  margin-top: 2rem;
+  text-align: center;
+}
+@media (max-width: 750px) {
+  .form-actions {
+    margin-top: 1.75rem;
+  }
+}
+
+.btn {
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+@media (max-width: 750px) {
+  .btn {
+    padding: 0.7rem 1.75rem;
+    font-size: 0.95rem;
+  }
+}
+@media (max-width: 576px) {
+  .btn {
+    width: 100%;
+  }
+}
+
+.btn-primary {
+  background-color: #0071e3;
+  color: white;
+}
+.btn-primary:hover {
+  background-color: #005bbf;
+}
+
+.error-container {
+  background-color: #fff5f5;
+  border-left: 3px solid #ff3b30;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border-radius: 5px;
+}
+
+.error-message {
+  color: #ff3b30;
+  margin: 0;
+}
+
+.auth-footer {
+  margin-top: 2rem;
+  text-align: center;
+}
+@media (max-width: 750px) {
+  .auth-footer {
+    margin-top: 1.75rem;
+    font-size: 0.95rem;
+  }
 }
 
 /* quiz_project/public/css/style.scss */
