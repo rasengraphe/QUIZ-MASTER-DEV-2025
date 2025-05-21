@@ -1,15 +1,27 @@
 <?php
-// models/QuestionModel.php
+/**
+ * Classe QuestionModel - Gère toutes les interactions avec la base de données pour les questions
+ * Hérite de la classe Model pour la connexion à la base de données
+ */
 class QuestionModel extends Model {
-    protected $db;
+    protected $db; // Instance de PDO pour la connexion à la base de données
 
+    /**
+     * Constructeur - Initialise la connexion à la base de données
+     * @param PDO $db - Instance de connexion à la base de données
+     */
     public function __construct($db) {
         parent::__construct($db);
         $this->db = $db;
     }
 
     /**
-     * Récupère toutes les questions
+     * Récupère toutes les questions de la base de données
+     * @return array - Liste de toutes les questions triées par ID décroissant
+     * Structure de retour: [
+     *     ['Id_question' => 1, 'text' => 'Question?', ...],
+     *     ['Id_question' => 2, 'text' => 'Autre question?', ...]
+     * ]
      */
     public function getAllQuestions() {
         try {
@@ -22,7 +34,10 @@ class QuestionModel extends Model {
     }
 
     /**
-     * Récupère une question par son ID
+     * Récupère une question spécifique par son ID
+     * @param int $id - ID de la question à récupérer
+     * @return array|false - Données de la question ou false si non trouvée
+     * Exemple de retour: ['Id_question' => 1, 'text' => 'Question?', ...]
      */
     public function getQuestionById($id) {
         try {
@@ -54,7 +69,19 @@ class QuestionModel extends Model {
     }
 
     /**
-     * Récupère les questions pour un quiz spécifique
+     * Récupère les questions pour un quiz spécifique avec leurs réponses
+     * @param int $quizId - ID du quiz
+     * @return array - Questions avec leurs réponses associées
+     * Structure de retour: [
+     *     [
+     *         'Id_question' => 1,
+     *         'text' => 'Question?',
+     *         'answers' => [
+     *             ['id' => 1, 'text' => 'Réponse 1', 'is_correct' => 1],
+     *             ['id' => 2, 'text' => 'Réponse 2', 'is_correct' => 0]
+     *         ]
+     *     ]
+     * ]
      */
     public function getQuestionsForQuiz($quizId) {
         try {
@@ -144,7 +171,16 @@ class QuestionModel extends Model {
     }
 
     /**
-     * Crée une nouvelle question
+     * Crée une nouvelle question dans la base de données
+     * @param string $questionText - Texte de la question
+     * @param string|null $imagePath - Chemin de l'image associée (optionnel)
+     * @param int $createdBy - ID de l'administrateur créant la question
+     * @return int|false - ID de la nouvelle question ou false si échec
+     * 
+     * Notes sur la requête:
+     * - Id_question_category = 1 : Catégorie par défaut
+     * - Id_question_difficulte = 1 : Difficulté par défaut
+     * - NOW() : Date/heure actuelle de création
      */
     public function createQuestion($questionText, $imagePath, $createdBy) {
         try {
@@ -179,61 +215,90 @@ class QuestionModel extends Model {
     /**
      * Ajoute une réponse à une question
      */
-    public function addAnswer($questionId, $answerText, $isCorrect) {
+    public function addAnswer($data) {
         try {
-            error_log("Debug Answer: Début addAnswer()");
-            error_log("Debug Answer: Paramètres - questionId: $questionId, answerText: $answerText, isCorrect: " . ($isCorrect ? "true" : "false"));
+            $sql = "INSERT INTO quiz_question_answer (text, correct, Id_question) 
+                   VALUES (:text, :correct, :Id_question)";
+                   
+            $stmt = $this->db->prepare($sql);
+            $result = $stmt->execute([
+                'text' => $data['text'],
+                'correct' => $data['correct'],
+                'Id_question' => $data['Id_question']
+            ]);
             
-            $stmt = $this->db->prepare("
-                INSERT INTO quiz_question_answer (Id_question, text, correct)
-                VALUES (:question_id, :answer_text, :is_correct)
-            ");
-            $stmt->bindParam(':question_id', $questionId, PDO::PARAM_INT);
-            $stmt->bindParam(':answer_text', $answerText, PDO::PARAM_STR);
-            $stmt->bindParam(':is_correct', $isCorrect, PDO::PARAM_INT);
-            
-            $success = $stmt->execute();
-            error_log("Debug Answer: Exécution de la requête - " . ($success ? "Réussie" : "Échouée"));
-            
-            if ($success) {
-                $answerId = $this->db->lastInsertId();
-                error_log("Debug Answer: Réponse créée avec ID: $answerId");
-            }
-            
-            return $success;
+            return $result ? $this->db->lastInsertId() : false;
         } catch (PDOException $e) {
-            error_log("Debug Answer: Erreur PDO lors de la création de la réponse: " . $e->getMessage());
+            error_log("Erreur lors de l'ajout de la réponse: " . $e->getMessage());
             return false;
         }
     }
 
     /**
      * Met à jour une question existante
+     * @param array $data - Données de la question à mettre à jour
+     * Structure attendue de $data:
+     * [
+     *     'text' => 'Nouveau texte',
+     *     'Id_question' => 1,
+     *     'Id_question_category' => 2, // optionnel
+     *     'Id_question_difficulte' => 3, // optionnel
+     *     'picture' => 'chemin/image.jpg' // optionnel
+     * ]
+     * @return bool - true si succès, false si échec
      */
-    public function updateQuestion($id, $questionText, $imagePath) {
+    public function updateQuestion($data) {
         try {
-            // Si l'image est vide, ne pas mettre à jour ce champ
-            if (empty($imagePath)) {
-                $stmt = $this->db->prepare("
-                    UPDATE quiz_question
-                    SET text = :question_text
-                    WHERE Id_question = :id
-                ");
-                $stmt->bindParam(':question_text', $questionText, PDO::PARAM_STR);
+            // Construire la requête SQL
+            $sql = "UPDATE quiz_question SET text = :text";
+            
+            $params = [
+                'text' => $data['text'],
+                'Id_question' => $data['Id_question']
+            ];
+            
+            // Ajouter la catégorie si elle est définie
+            if (isset($data['Id_question_category']) && !is_null($data['Id_question_category'])) {
+                $sql .= ", Id_question_category = :category";
+                $params['category'] = $data['Id_question_category'];
             } else {
-                $stmt = $this->db->prepare("
-                    UPDATE quiz_question
-                    SET text = :question_text, picture = :image_path
-                    WHERE Id_question = :id
-                ");
-                $stmt->bindParam(':question_text', $questionText, PDO::PARAM_STR);
-                $stmt->bindParam(':image_path', $imagePath, PDO::PARAM_STR);
+                $sql .= ", Id_question_category = NULL";
             }
             
-            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-            return $stmt->execute();
+            // Ajouter la difficulté si elle est définie
+            if (isset($data['Id_question_difficulte']) && !is_null($data['Id_question_difficulte'])) {
+                $sql .= ", Id_question_difficulte = :difficulty";
+                $params['difficulty'] = $data['Id_question_difficulte'];
+            } else {
+                $sql .= ", Id_question_difficulte = NULL";
+            }
+            
+            // Traitement spécial pour l'image
+            if (array_key_exists('picture', $data)) {
+                if (is_null($data['picture'])) {
+                    $sql .= ", picture = NULL";
+                } else {
+                    $sql .= ", picture = :picture";
+                    $params['picture'] = $data['picture'];
+                }
+            }
+            
+            $sql .= " WHERE Id_question = :Id_question";
+            
+            error_log("SQL: " . $sql);
+            error_log("Params: " . print_r($params, true));
+            
+            // Exécuter la requête
+            $stmt = $this->db->prepare($sql);
+            $result = $stmt->execute($params);
+            
+            if (!$result) {
+                error_log("Erreur SQL: " . print_r($stmt->errorInfo(), true));
+            }
+            
+            return $result;
         } catch (PDOException $e) {
-            error_log("Erreur lors de la mise à jour de la question: " . $e->getMessage());
+            error_log("PDO Exception: " . $e->getMessage());
             return false;
         }
     }
@@ -241,18 +306,18 @@ class QuestionModel extends Model {
     /**
      * Met à jour une réponse
      */
-    public function updateAnswer($answerId, $answerText, $isCorrect) {
+    public function updateAnswer($data) {
         try {
-            $stmt = $this->db->prepare("
-                UPDATE quiz_question_answer
-                SET text = :answer_text, correct = :is_correct
-                WHERE Id_question_answer = :id
-            ");
-            $stmt->bindParam(':answer_text', $answerText, PDO::PARAM_STR);
-            $stmt->bindParam(':is_correct', $isCorrect, PDO::PARAM_INT);
-            $stmt->bindParam(':id', $answerId, PDO::PARAM_INT);
-            
-            return $stmt->execute();
+            $sql = "UPDATE quiz_question_answer 
+                   SET text = :text, correct = :correct 
+                   WHERE Id_question_answer = :Id_question_answer";
+                   
+            $stmt = $this->db->prepare($sql);
+            return $stmt->execute([
+                'text' => $data['text'],
+                'correct' => $data['correct'],
+                'Id_question_answer' => $data['Id_question_answer']
+            ]);
         } catch (PDOException $e) {
             error_log("Erreur lors de la mise à jour de la réponse: " . $e->getMessage());
             return false;
@@ -260,7 +325,15 @@ class QuestionModel extends Model {
     }
 
     /**
-     * Supprime une question et ses réponses associées
+     * Supprime une question et toutes ses dépendances
+     * Utilise une transaction pour garantir l'intégrité des données
+     * Ordre de suppression:
+     * 1. Supprime les réponses associées
+     * 2. Supprime les liens quiz-questions
+     * 3. Supprime la question elle-même
+     * 
+     * @param int $id - ID de la question à supprimer
+     * @return bool - true si succès, false si échec
      */
     public function deleteQuestion($id) {
         try {
@@ -319,7 +392,14 @@ class QuestionModel extends Model {
     }
 
     /**
-     * Récupère les questions pour une recherche
+     * Recherche des questions par texte
+     * @param string $searchTerm - Terme à rechercher
+     * @return array - Questions correspondant à la recherche
+     * 
+     * Notes:
+     * - Utilise LIKE avec des wildcards (%)
+     * - Joint avec la table users pour récupérer le nom du créateur
+     * - Normalise les noms de champs pour la compatibilité
      */
     public function searchQuestions($searchTerm) {
         try {

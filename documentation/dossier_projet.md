@@ -12,7 +12,7 @@
 
 **Année Académique :** 2024-2025
 
-![Logo Quiz Master Dev](../public/img/logo.png)
+![Logo Quiz Master Dev](../documentation/images/logo.png)
 
 ## Table des Matières
 
@@ -23,13 +23,10 @@
 5. [Spécifications Techniques](#5-spécifications-techniques)
 6. [Architecture du Projet](#6-architecture-du-projet)
 7. [Réalisation](#7-réalisation)
-   - [7.1. Étapes de la Réalisation](#71-étapes-de-la-réalisation)
-   - [7.2. Maquettes](#72-maquettes)
-   - [7.3. Intégration](#73-intégration)
-   - [7.4. Base de Données](#74-base-de-données)
 8. [Tests et Validation](#8-tests-et-validation)
 9. [Conclusion](#9-conclusion)
 10. [Annexes](#10-annexes)
+11. [Évolutions Futures (V2)](#11-évolutions-futures-v2)
 
 ## 1. Introduction
 
@@ -84,6 +81,18 @@ Le projet offre les fonctionnalités suivantes :
 - Gestion de la sécurité de la plateforme
 
 ![Schéma du flux utilisateur](../documentation/images/user_flow.jpg)
+Un schéma de flux utilisateur (User Flow en anglais) est une représentation visuelle du parcours qu'un utilisateur suit pour accomplir une tâche spécifique dans l'application. Dans le contexte de Quiz Master Dev, ce schéma devrait montrer :
+
+```markdown
+graph TD
+    A[Accueil] --> B{Utilisateur connecté?}
+    B -->|Non| C[Page de connexion]
+    B -->|Oui| D[Dashboard]
+    D --> E[Sélection Quiz]
+    E --> F[Quiz en cours]
+    F --> G[Résultats]
+    G --> H[Partage]
+```
 
 ## 3. Objectifs du Projet
 
@@ -130,6 +139,38 @@ Le projet offre les fonctionnalités suivantes :
   - Options de personnalisation du message de partage incluant le score obtenu
 - **Modification du profil :** Les joueurs peuvent modifier leurs informations personnelles, comme leur nom, leur avatar, et leur mot de passe.
 
+### Fonctionnalités prévues pour la version 2.0
+
+#### Système de Scores et Badges
+
+Le système de récompenses sera enrichi dans la version 2.0 avec :
+
+1. **Système de Points**
+   - Points de base pour chaque réponse correcte
+   - Bonus de rapidité selon le temps de réponse
+   - Multiplicateurs selon le niveau de difficulté
+   - Points bonus pour les séries de bonnes réponses
+
+2. **Badges et Accomplissements**
+   - Badges de progression (Débutant, Intermédiaire, Expert)
+   - Badges thématiques par catégorie (Maître HTML, Guru CSS, etc.)
+   - Badges spéciaux (Premier Quiz, 10 Quiz parfaits, etc.)
+   - Badges de participation (7 jours consécutifs, etc.)
+
+3. **Tableau des scores**
+   - Classement général des joueurs
+   - Classements par catégorie
+   - Classements hebdomadaires et mensuels
+   - Historique personnel des scores
+
+4. **Statistiques détaillées**
+   - Taux de réussite par catégorie
+   - Temps moyen de réponse
+   - Progression dans le temps
+   - Analyse des points forts et faibles
+
+_Note: Ces fonctionnalités sont en cours de développement et seront disponibles dans la version 2.0 de l'application._
+
 #### Pour les Administrateurs :
 
 - **Gestion des utilisateurs :** Les administrateurs peuvent voir la liste des utilisateurs, modifier leurs informations, changer leur rôle (joueur, administrateur), et désactiver des comptes.
@@ -137,10 +178,24 @@ Le projet offre les fonctionnalités suivantes :
 - **Gestion des questions :** Les administrateurs peuvent créer de nouveaux quiz, ajouter, modifier et supprimer des questions (avec différents types de réponses possibles), et organiser les questions en catégories.
 - **Gestion des catégories de quiz :** Les administrateurs peuvent créer, modifier et supprimer des catégories et des niveaux de difficulté pour organiser le contenu.
 - **Statistiques et rapports :** Les administrateurs peuvent consulter des statistiques sur l'activité de la plateforme, comme le nombre de joueurs inscrits, les quiz les plus populaires, et les résultats moyens des joueurs.
+_Note: Ces fonctionnalités sont en cours de développement et seront disponibles dans la version 2.0 de l'application._
 
 ### Cas d'utilisation
 
 ![Diagramme de cas d'utilisation](../documentation/images/use_cases.jpg)
+
+```markdown
+graph TD
+    A((Joueur)) --> B[S'inscrire/Se connecter]
+    A --> C[Participer à un quiz]
+    A --> D[Consulter scores]
+    A --> E[Gérer profil]
+    
+    F((Admin)) --> G[Gérer questions]
+    F --> H[Gérer utilisateurs]
+    F --> I[Créer/Modifier quiz]
+    F --> J[Consulter stats]
+```
 
 ## 5. Spécifications Techniques
 
@@ -163,6 +218,51 @@ Les langages de programmation utilisés pour développer Quiz Master Dev sont :
 - **CSS3 :** Langage de style pour la présentation et l'apparence des pages web.
 - **JavaScript ES6 :** Langage de script côté client pour l'interactivité et les fonctionnalités dynamiques de l'interface utilisateur.
 - **SCSS :** Préprocesseur CSS pour une meilleure organisation et maintenance du code CSS.
+
+### Technologies de communication
+
+#### Format d'échange de données JSON
+
+L'application utilise JSON (JavaScript Object Notation) pour :
+
+- **Communication Client-Serveur** : Échange de données entre le navigateur et le serveur
+- **API REST** : Format standardisé pour les requêtes et réponses
+- **Stockage de configurations** : Certains paramètres de l'application
+
+Exemple d'utilisation dans l'application :
+
+```javascript
+// Côté client (JavaScript)
+async function submitQuizAnswer(questionData) {
+    const response = await fetch('/submitAnswer', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            questionId: questionData.id,
+            answerId: questionData.selectedAnswer,
+            quizId: questionData.quizId,
+            timeSpent: questionData.timer
+        })
+    });
+    return await response.json();
+}
+```
+
+```php
+// Côté serveur (PHP)
+public function getJsonData() {
+    $jsonData = file_get_contents('php://input');
+    return json_decode($jsonData, true);
+}
+```
+Avantages de l'utilisation du JSON :
+
+Format léger et facile à lire
+Support natif dans JavaScript et PHP
+Parfaitement adapté aux applications web modernes
+Facilite les mises à jour dynamiques de l'interface
 
 ### Frameworks et librairies
 
@@ -212,30 +312,18 @@ Voici un exemple illustrant le fonctionnement de l'architecture MVC lorsqu'un ad
 
 2. **Contrôleur (`QuestionController.php`) :**
    ```php
-   public function editQuestion($id) {
-       // Vérification des permissions administrateur
-       if (!$this->isAdmin()) {
-           $this->redirect('login');
+   <?php
+   // controllers/QuestionController.php
+   class QuestionController {
+       private $questionModel;
+       
+       public function edit($id) {
+           // Logique de récupération et affichage
        }
        
-       // Récupération des données de la question via le modèle
-       $questionModel = new QuestionModel();
-       $question = $questionModel->getQuestionById($id);
-       
-       if (!$question) {
-           $this->setError("La question demandée n'existe pas.");
-           $this->redirect('admin/questions');
+       public function update($id) {
+           // Logique de mise à jour
        }
-       
-       // Récupération des données annexes (catégories, niveaux de difficulté)
-       $categoryModel = new CategoryModel();
-       $categories = $categoryModel->getAllCategories();
-       
-       // Transmission des données à la vue
-       $this->render('admin/questions/edit', [
-           'question' => $question,
-           'categories' => $categories
-       ]);
    }
    ```
 
@@ -301,14 +389,161 @@ Voici un exemple illustrant le fonctionnement de l'architecture MVC lorsqu'un ad
 
 Cette séparation en MVC permet une maintenance plus facile (chaque partie peut être modifiée indépendamment) et favorise la réutilisation du code.
 
+### Exemple d'une requête HTTP complète
+
+Pour illustrer le fonctionnement de l'application, voici un exemple détaillé d'une requête HTTP depuis sa réception jusqu'à la réponse, lors de la soumission d'une réponse à une question de quiz :
+
+1. **Requête HTTP initiale**
+```http
+POST /QUIZ-MASTER-DEV-2025/index.php?action=submitAnswer HTTP/1.1
+Host: localhost
+Content-Type: application/json
+Authorization: Bearer SESSION_TOKEN_123
+Content-Length: 89
+
+{
+    "questionId": 42,
+    "answerId": 156,
+    "quizId": 7,
+    "timeSpent": 15
+}
+```
+
+2. **Traitement par le routeur (`index.php`)**
+```php
+// Analyse de l'URL et redirection vers le contrôleur approprié
+$action = $_GET['action'] ?? 'home';
+$controller = new QuizController();
+if ($action === 'submitAnswer') {
+    $controller->submitAnswer();
+}
+```
+
+3. **Traitement par le contrôleur (`QuizController.php`)**
+```php
+public function submitAnswer() {
+    // Vérification de l'authentification
+    if (!$this->isAuthenticated()) {
+        $this->sendJsonResponse(['error' => 'Non autorisé'], 401);
+        return;
+    }
+
+    // Récupération et validation des données
+    $data = json_decode(file_get_contents('php://input'), true);
+    if (!$this->validateAnswerData($data)) {
+        $this->sendJsonResponse(['error' => 'Données invalides'], 400);
+        return;
+    }
+
+    // Appel au modèle pour traiter la réponse
+    $quizModel = new QuizModel();
+    $result = $quizModel->processAnswer(
+        $data['questionId'],
+        $data['answerId'],
+        $data['quizId'],
+        $data['timeSpent']
+    );
+
+    // Envoi de la réponse
+    $this->sendJsonResponse($result);
+}
+```
+
+4. **Traitement par le modèle (`QuizModel.php`)**
+```php
+public function processAnswer($questionId, $answerId, $quizId, $timeSpent) {
+    // Vérification de la réponse dans la base de données
+    $query = $this->db->prepare('
+        SELECT is_correct, points 
+        FROM quiz_question_answer 
+        WHERE Id_answer = ? AND Id_question = ?
+    ');
+    $query->execute([$answerId, $questionId]);
+    $answer = $query->fetch();
+
+    // Enregistrement de la réponse dans l'historique
+    $this->saveAnswerHistory(
+        $_SESSION['user_id'],
+        $quizId,
+        $questionId,
+        $answerId,
+        $answer['is_correct'],
+        $timeSpent
+    );
+
+    return [
+        'correct' => (bool)$answer['is_correct'],
+        'points' => $answer['points'],
+        'feedback' => $this->getFeedbackForAnswer($answerId)
+    ];
+}
+```
+
+5. **Réponse HTTP finale**
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+X-Powered-By: PHP/8.0.0
+
+{
+    "correct": true,
+    "points": 10,
+    "feedback": "Excellente réponse ! L'utilisation de la balise <header> est en effet appropriée pour le contenu d'en-tête."
+}
+```
+
+### Diagramme de séquence
+
+```markdown
+sequenceDiagram
+    participant C as Client (Navigateur)
+    participant R as Router (index.php)
+    participant Co as Controller
+    participant M as Model
+    participant DB as Base de données
+
+    C->>R: POST /index.php?action=submitAnswer
+    Note over C,R: {questionId: 42, answerId: 156,...}
+
+    R->>Co: submitAnswer()
+    Note over R,Co: Redirection vers QuizController
+
+    Co->>Co: isAuthenticated()
+    Note over Co: Vérification session
+
+    Co->>Co: validateAnswerData()
+    Note over Co: Validation données
+
+    Co->>M: processAnswer()
+    Note over Co,M: Transmission des données validées
+
+    M->>DB: SELECT query
+    Note over M,DB: Vérification réponse
+
+    DB-->>M: Résultat requête
+    Note over DB,M: {is_correct, points}
+
+    M->>DB: INSERT history
+    Note over M,DB: Sauvegarde historique
+
+    M-->>Co: Retour résultat
+    Note over M,Co: {correct, points, feedback}
+
+    Co-->>C: JSON Response 200 OK
+    Note over Co,C: {"correct": true, "points": 10,...}
+```
+
 ### Structure des dossiers et fichiers
 
 ```
 QUIZ-MASTER-DEV-2025/
 ├── config/                  # Configuration (connexion BDD)
 ├── controllers/             # Contrôleurs (logique applicative)
+│   └── QuestionController.php
 ├── core/                    # Classes fondamentales
+│   └── Model.php            # Classe abstraite pour les modèles
 ├── models/                  # Modèles (accès aux données)
+│   └── QuizModel.php        # Modèle pour les quiz
 ├── public/                  # Ressources publiques
 │   ├── css/                 # Fichiers CSS compilés
 │   ├── img/                 # Images
@@ -321,6 +556,8 @@ QUIZ-MASTER-DEV-2025/
 │   ├── admin/               # Pages d'administration
 │   ├── layout/              # Templates partagés (header, footer)
 │   └── user/                # Pages utilisateur
+│   └── quiz/                # Pages de quiz
+│       └── results.php      # Résultats des quiz
 ├── documentation/           # Documentation du projet
 └── index.php                # Point d'entrée
 ```
@@ -328,6 +565,106 @@ QUIZ-MASTER-DEV-2025/
 ### Schéma de l'architecture
 
 ![Schéma de l'architecture MVC](../documentation/images/mvc_architecture.jpg)
+
+```markdown
+graph TD
+    %% Définition des styles
+    classDef browser fill:#f9f,stroke:#333,stroke-width:2px
+    classDef server fill:#9cf,stroke:#333,stroke-width:2px
+    classDef component fill:#cfc,stroke:#333,stroke-width:2px
+    classDef database fill:#fcf,stroke:#333,stroke-width:2px
+
+    %% Composants
+    Client[Navigateur Web]:::browser
+    Router[Router]:::server
+    Controller[QuizController]:::component
+    Model[QuizModel]:::component
+    View[Views]:::component
+    DB[(Database)]:::database
+
+    %% Connexions avec des labels simples
+    Client -->|"Requête HTTP"| Router
+    Router -->|"Route"| Controller
+    Controller -->|"getData"| Model
+    Model -->|"SQL"| DB
+    DB -->|"Data"| Model
+    Model -->|"Result"| Controller
+    Controller -->|"Data"| View
+    View -->|"HTML/JSON"| Client
+```
+
+##### Schéma du cycle CRUD
+
+```mermaid
+graph TD
+    A[Interface Admin] --> B{Action?}
+    B -->|Create| C[Nouveau Quiz/Question]
+    B -->|Read| D[Consulter Quiz/Question]
+    B -->|Update| E[Modifier Quiz/Question]
+    B -->|Delete| F[Supprimer Quiz/Question]
+    
+    C --> G[Validation Données]
+    D --> H[Récupération BDD]
+    E --> I[Vérification Droits]
+    F --> J[Confirmation]
+    
+    G --> K[INSERT SQL]
+    H --> L[SELECT SQL]
+    I --> M[UPDATE SQL]
+    J --> N[DELETE SQL]
+    
+    K --> O[Message Succès/Erreur]
+    L --> P[Affichage Données]
+    M --> Q[Confirmation Modification]
+    N --> R[Confirmation Suppression]
+```
+
+##### Exemple de code CRUD complet
+
+```php
+// Exemple de classe Controller implémentant le CRUD
+
+class QuizController {
+    // CREATE
+    public function create() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $data = $this->validateQuizData($_POST);
+            $quizId = $this->quizModel->insert($data);
+            $this->redirect('/quiz/' . $quizId);
+        }
+    }
+
+    // READ
+    public function read($id) {
+        $quiz = $this->quizModel->getById($id);
+        $this->render('quiz/view', ['quiz' => $quiz]);
+    }
+
+    // UPDATE
+    public function update($id) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $data = $this->validateQuizData($_POST);
+            $this->quizModel->update($id, $data);
+            $this->redirect('/quiz/' . $id);
+        }
+    }
+
+    // DELETE
+    public function delete($id) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $this->quizModel->delete($id);
+            $this->redirect('/quiz/list');
+        }
+    }
+}
+```
+
+Cette implémentation garantit :
+- La validation des données entrantes
+- La gestion des erreurs
+- La sécurité des opérations
+- La traçabilité des actions
+- Le retour d'information à l'utilisateur
 
 ## 7. Réalisation
 
@@ -443,6 +780,32 @@ Les couleurs principales (#0071e3 et #1d1d1f) ont été choisies pour leur contr
 
 ![Maquettes graphiques](../documentation/images/wireframes.jpg)
 
+### 7.2.1 Captures d'écran de l'Application
+
+#### Interface Administrateur
+
+![Dashboard Administrateur](../documentation/images/screens/admin_dashboard.jpg)
+*Dashboard principal de l'administrateur permettant la gestion globale de la plateforme*
+
+#### Gestion des Quiz
+![Gestion des Quiz](../documentation/images/screens/quiz_management.jpg)
+*Interface de gestion des quiz avec les options CRUD*
+
+#### Interface Utilisateur
+![Page d'accueil](../documentation/images/screens/home_page.jpg)
+*Page d'accueil présentant les différents quiz disponibles*
+
+![Quiz en cours](../documentation/images/screens/quiz_playing.jpg)
+*Interface de jeu pendant un quiz*
+
+#### Tableaux de Bord
+![Statistiques Utilisateur](../documentation/images/screens/user_stats.jpg)
+*Dashboard utilisateur montrant les statistiques et la progression*
+
+#### Interface Mobile
+![Version Mobile](../documentation/images/screens/mobile_view.jpg)
+*Aperçu de l'application sur mobile démontrant la responsivité*
+
 ### 7.3. Intégration
 
 #### Technologies utilisées (HTML5, CSS3, SASS, JavaScript)
@@ -536,119 +899,467 @@ document.addEventListener("DOMContentLoaded", function () {
       const inputs = quizForm.querySelectorAll('input[type="radio"]:checked');
 
       inputs.forEach((input) => {
-        answers[input.name] = input.value;
-      });
-
-      // Envoyer les réponses au serveur
-      submitAnswers(answers);
-    });
-  }
-});
+        answers[input
 ```
 
-### 7.4. Base de Données
+### Intégration de l'API Web Share
 
-#### Modélisation des données
+#### Présentation
+J'ai choisi d'implémenter l'API Web Share pour permettre aux utilisateurs de partager facilement leurs résultats de quiz sur différentes plateformes. Cette API native offre une solution élégante et moderne qui s'intègre parfaitement aux fonctionnalités de partage du système d'exploitation.
 
-La modélisation de la base de données a été réalisée à l'aide d'un diagramme entité-association (EA). Les principales entités sont :
+#### Implémentation Technique
 
-- **quiz_users :** Stocke les informations des utilisateurs (joueurs et administrateurs)
-- **quiz_question :** Contient toutes les questions du quiz
-- **quiz_question_answer :** Contient les réponses possibles pour chaque question
-- **quiz_question_category :** Catégories des questions
-- **quiz_question_difficulte :** Niveaux de difficulté des questions
-- **quiz :** Informations sur les quiz configurés
-- **quiz_questions :** Table de jonction entre quiz et questions
-- **quiz_game_history :** Historique des parties jouées par les utilisateurs
-- **quiz_avatar :** Avatars disponibles pour les utilisateurs
+1. **JavaScript pour le partage**
+```javascript
+// public/js/shareResults.js
+class QuizShareManager {
+    constructor() {
+        this.shareButton = document.querySelector('.share-results-btn');
+        this.initShareFeature();
+    }
 
-#### Système de gestion de base de données
+    initShareFeature() {
+        // Vérification de la compatibilité du navigateur
+        if (!navigator.share) {
+            this.shareButton.style.display = 'none';
+            return;
+        }
 
-MySQL 8.0 a été choisi comme système de gestion de base de données pour sa fiabilité, ses performances et sa compatibilité avec PHP.
+        this.shareButton.addEventListener('click', (e) => this.handleShare(e));
+    }
 
-#### Justification des choix de conception
+    async handleShare(event) {
+        event.preventDefault();
+        const quizData = this.getQuizData();
 
-La conception de la base de données a été guidée par les principes suivants :
+        try {
+            await navigator.share({
+                title: 'Mon score sur Quiz Master Dev!',
+                text: `J'ai obtenu ${quizData.score} points sur le quiz "${quizData.quizTitle}"! 🎯`,
+                url: window.location.href
+            });
+            console.log('Partage réussi!');
+        } catch (err) {
+            console.warn('Erreur lors du partage:', err.message);
+        }
+    }
 
-- **Intégrité des données :** Utilisation de clés primaires et étrangères pour garantir la cohérence
-- **Normalisation :** Tables conçues selon les formes normales pour éviter la redondance
-- **Performance :** Indexation appropriée pour optimiser les requêtes fréquentes
-- **Évolutivité :** Structure permettant l'ajout de nouvelles fonctionnalités
+    getQuizData() {
+        return {
+            score: document.querySelector('[data-quiz-score]').dataset.quizScore,
+            quizTitle: document.querySelector('[data-quiz-title]').dataset.quizTitle
+        };
+    }
+}
+```
+2.  **HTML pour l'interface**
+```html
+<!-- views/quiz/results.php -->
+<div class="quiz-results">
+    <h2 data-quiz-title="<?= htmlspecialchars($quiz['title']) ?>">
+        Résultats du Quiz
+    </h2>
+    
+    <div class="score-display" data-quiz-score="<?= $score ?>">
+        Votre score : <?= $score ?> points
+    </div>
 
-![Schéma de la base de données](../documentation/images/database_schema.jpg)
+    <button class="share-results-btn">
+        <i class="fas fa-share-alt"></i>
+        Partager mes résultats
+    </button>
+</div>
+```
+
+3. **sCSS pour le style**
+```scss
+// public/scss/_share-button.scss
+.share-results-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    background: #0071e3;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+
+    &:hover {
+        background: darken(#0071e3, 10%);
+    }
+
+    // Fallback pour les navigateurs non compatibles
+    @supports not (navigator-share) {
+        display: none;
+    }
+}
+```
+4.**Gestion de la Compatibilité**
+
+```js
+// public/js/shareUtils.js
+class ShareCompatibility {
+    static checkSupport() {
+        if (navigator.share) {
+            return 'native';
+        } else if (navigator.clipboard) {
+            return 'clipboard';
+        }
+        return 'fallback';
+    }
+
+    static provideFallback(url, text) {
+        // Création d'une zone de texte temporaire
+        const textarea = document.createElement('textarea');
+        textarea.value = `${text}\n${url}`;
+        document.body.appendChild(textarea);
+        textarea.select();
+        
+        try {
+            document.execCommand('copy');
+            alert('Lien copié dans le presse-papier!');
+        } catch (err) {
+            console.error('Erreur de copie:', err);
+        }
+        
+        document.body.removeChild(textarea);
+    }
+}
+
+```
+#### Avantages de cette Implémentation
+
+Expérience Utilisateur Native
+
+Utilise l'interface de partage native du système
+S'intègre parfaitement à l'appareil de l'utilisateur
+Accès à toutes les options de partage installées
+Performance et Légèreté
+
+Pas de dépendances externes nécessaires
+Chargement rapide
+Code minimal
+Adaptabilité
+
+Fonctionne sur mobile et desktop
+Fallback gracieux sur les navigateurs non compatibles
+Personnalisation facile du message de partage
+
+### 7.4. Modélisation de la Base de Données
+
+#### Conception du MCD (Modèle Conceptuel de Données)
+
+Pour concevoir la base de données de Quiz Master Dev, j'ai d'abord créé un Modèle Conceptuel de Données permettant de représenter les différentes entités et leurs relations :
+
+##### Entités Principales
+- **USER** (id_user, username, email, password, role)
+- **QUIZ** (id_quiz, title, description, time_limit)
+- **QUESTION** (id_question, text, image_path)
+- **ANSWER** (id_answer, text, is_correct)
+- **CATEGORY** (id_category, name, description)
+
+##### Relations
+- **PARTICIPE** : USER <-> QUIZ (0,N) - (0,N)
+- **CONTIENT** : QUIZ <-> QUESTION (1,N) - (0,N)
+- **PROPOSE** : QUESTION <-> ANSWER (1,1) - (1,N)
+- **APPARTIENT** : QUESTION <-> CATEGORY (0,N) - (1,1)
+
+![Schéma MCD](../documentation/images/mcd_schema.jpg)
+
+#### Transformation en MLD (Modèle Logique de Données)
+
+À partir du MCD, j'ai effectué la transformation en Modèle Logique de Données en appliquant les règles de passage :
+
+##### Tables Principales
+```sql
+USER (
+    id_user INT PRIMARY KEY,
+    username VARCHAR(50),
+    email VARCHAR(100),
+    password_hash VARCHAR(255),
+    role ENUM('user', 'admin')
+)
+
+QUIZ (
+    id_quiz INT PRIMARY KEY,
+    title VARCHAR(100),
+    description TEXT,
+    time_limit INT
+)
+
+QUESTION (
+    id_question INT PRIMARY KEY,
+    text TEXT,
+    image_path VARCHAR(255),
+    id_category INT,
+    FOREIGN KEY (id_category) REFERENCES CATEGORY(id_category)
+)
+```
+
+#### Outils de Modélisation
+
+Pour la conception de la base de données, j'ai utilisé **Looping**, un outil de modélisation de données qui m'a permis de :
+
+- Créer le Modèle Conceptuel de Données (MCD)
+- Générer automatiquement le Modèle Logique de Données (MLD)
+- Exporter directement le script SQL de création de la base de données
+- Visualiser graphiquement les relations entre les tables
+- Vérifier la cohérence du modèle
+
+Cette approche m'a permis d'avoir une base de données bien structurée et optimisée dès le début du projet, en suivant les bonnes pratiques de conception.
+
+![Capture d'écran Looping](../documentation/images/looping_screenshot.jpg)
+*Interface de Looping montrant le MCD du projet*
+
+### 7.5 Fonctionnalités CRUD
+
+#### Fonctionnement du Processus CRUD
+
+Le processus CRUD dans Quiz Master Dev suit un workflow bien défini pour chaque opération :
+
+##### 1. Création (Create)
+- L'administrateur accède au formulaire de création via le menu admin
+- Il saisit les informations de la question (texte, catégorie, difficulté)
+- Le contrôleur valide les données entrantes (format, taille, type)
+- Le modèle insère les données dans la base avec gestion des transactions
+
+##### 2. Lecture (Read)
+- L'administrateur consulte la liste des questions depuis son tableau de bord
+- Le contrôleur récupère les données via le modèle avec pagination
+- La vue affiche les informations formatées dans un tableau responsive
+- Possibilité de filtrer et trier les questions
+
+##### 3. Modification (Update)
+- L'administrateur sélectionne une question à modifier
+- Le formulaire est pré-rempli avec les données existantes
+- Les modifications sont validées avant enregistrement
+- Une confirmation visuelle indique le succès de l'opération
+
+##### 4. Suppression (Delete)
+- L'administrateur choisit de supprimer une question
+- Une modale de confirmation apparaît pour éviter les suppressions accidentelles
+- La suppression est effectuée avec gestion des dépendances (réponses, historique)
+- Un message confirme la suppression réussie
+
+#### Sécurité et Validation
+
+Chaque opération CRUD intègre plusieurs niveaux de sécurité :
+
+1. **Vérification des droits**
+   - Contrôle du rôle administrateur
+   - Vérification de la session active
+   - Protection des routes sensibles
+
+2. **Validation des données**
+   - Nettoyage des entrées utilisateur
+   - Validation des types et formats
+   - Vérification des contraintes métier
+
+3. **Protection BDD**
+   - Requêtes préparées systématiques
+   - Transactions pour les opérations complexes
+   - Gestion des erreurs SQL
+
+4. **Traçabilité**
+   - Journalisation des actions CRUD
+   - Horodatage des modifications
+   - Historique des opérations sensibles
+
+Cette implémentation garantit une gestion sécurisée et fiable des données tout en maintenant une expérience utilisateur fluide.
+
+### 7.6 Déploiement de l'Application
+
+#### Hébergement sur OVH
+
+L'application Quiz Master Dev a été déployée sur un hébergement mutualisé OVH, choisi pour sa fiabilité et ses performances. Le processus de déploiement s'est déroulé en plusieurs étapes :
+
+##### Configuration du Sous-domaine
+
+1. **Création du sous-domaine**
+   - Connexion à l'espace client OVH
+   - Accès à la zone DNS du domaine marchals.fr
+   - Ajout d'une entrée A pour quiz-master-dev.marchals.fr
+   - Configuration du pointage vers l'IP du serveur mutualisé
+
+2. **Configuration SSL**
+   - Activation du certificat SSL Let's Encrypt
+   - Vérification de la redirection HTTPS
+   - Test de la connexion sécurisée
+
+##### Déploiement avec FileZilla
+
+1. **Configuration de FileZilla**
+   ```
+   Hôte : ftp.cluster0XX.hosting.ovh.net
+   Identifiant : [login_ftp]
+   Mot de passe : [password_ftp]
+   Port : 21
+   ```
+
+2. **Organisation des fichiers**
+   - Création du répertoire /quiz-master-dev/
+   - Upload des fichiers dans l'arborescence suivante :
+     ```
+     /quiz-master-dev/
+     ├── public/
+     ├── src/
+     ├── vendor/
+     ├── .htaccess
+     └── index.php
+     ```
+
+3. **Gestion des permissions**
+   - Dossiers : 755 (drwxr-xr-x)
+   - Fichiers : 644 (-rw-r--r--)
+   - Vérification des droits sur /uploads/
+
+##### Configuration de l'Environnement
+
+1. **Paramètres PHP**
+   - Version PHP : 8.0
+   - Limites upload : 8M
+   - Memory limit : 256M
+
+2. **Configuration Base de données**
+   ```php
+   // .env.production
+   DB_HOST=clusterXXX.hosting.ovh.net
+   DB_NAME=quiz_master_dev
+   DB_USER=[db_user]
+   DB_PASS=[db_password]
+   ```
+
+3. **Sécurité**
+   - Protection des dossiers sensibles
+   - Configuration du pare-feu applicatif
+   - Mise en place des en-têtes de sécurité
+
+##### Tests Post-Déploiement
+
+1. **Vérifications fonctionnelles**
+   - Test de connexion à la base de données
+   - Vérification des formulaires
+   - Test des uploads d'images
+   - Validation des sessions utilisateurs
+
+2. **Tests de performance**
+   - Temps de chargement < 2s
+   - Optimisation des ressources
+   - Validation W3C
+
+Le déploiement a été réalisé avec succès, permettant l'accès à l'application via https://quiz-master-dev.marchals.fr/. Les mesures de sécurité et les optimisations mises en place garantissent une expérience utilisateur fluide et sécurisée en production.
 
 ## 8. Tests et Validation
 
-### Méthodologies de test utilisées
+### Tests Manuels
 
-Pour assurer la qualité et la fiabilité de l'application, j'ai utilisé une approche de tests manuels systématiques :
+Les tests ont été réalisés manuellement pour garantir le bon fonctionnement de l'application. Voici les différents types de tests effectués :
 
-- **Tests fonctionnels :** Vérification systématique de chaque fonctionnalité selon des scénarios d'utilisation prédéfinis.
-- **Tests d'intégration :** Vérification des interactions entre les différents composants de l'application.
-- **Tests de compatibilité navigateur :** Vérification du comportement de l'application sur différents navigateurs (Chrome, Firefox, Edge).
-- **Tests de responsivité :** Vérification de l'adaptation de l'interface sur différents appareils et tailles d'écran.
-- **Tests de sécurité :** Vérification de la robustesse face aux tentatives d'injection SQL et attaques XSS.
+#### Tests Fonctionnels
 
-Contrairement à ce qui était initialement prévu, les tests unitaires automatisés avec PHPUnit n'ont pas été implémentés dans cette version du projet, privilégiant une approche manuelle plus adaptée aux contraintes de temps.
+**Authentification**
 
-### Cas de tests et résultats
+- Inscription d'un nouveau compte ✅
+- Connexion avec identifiants valides ✅
+- Tentative de connexion avec identifiants invalides ✅
+- Déconnexion ✅
 
-| Cas de test             | Description                                | Résultat attendu                                             | Résultat obtenu |
-| ----------------------- | ------------------------------------------ | ------------------------------------------------------------ | --------------- |
-| Inscription utilisateur | Création d'un nouveau compte joueur        | Compte créé avec succès, redirection vers le tableau de bord | Succès          |
-| Connexion utilisateur   | Authentification avec identifiants valides | Connexion réussie, accès au tableau de bord                  | Succès          |
-| Création de quiz        | Admin crée un nouveau quiz                 | Quiz ajouté à la base de données                             | Succès          |
-| Ajout de question       | Admin ajoute une question avec image       | Question enregistrée avec son image                          | Succès          |
-| Suppression de question | Admin supprime une question                | Question et réponses associées supprimées                    | Succès          |
-| Participation à un quiz | Joueur répond aux questions d'un quiz      | Résultats affichés en fin de quiz                            | Succès          |
+**Gestion des Quiz**
 
-### Optimisations et corrections
+- Création d'un nouveau quiz ✅
+- Modification d'un quiz existant ✅
+- Suppression d'un quiz ✅
+- Affichage correct des questions et réponses ✅
 
-Suite aux tests, plusieurs optimisations et corrections ont été apportées :
+#### Tests d'Interface
 
-- Amélioration des performances de chargement des pages avec beaucoup de questions
-- Correction des problèmes d'affichage sur certains appareils mobiles
-- Renforcement de la sécurité contre les injections SQL et XSS
-- Optimisation des requêtes à la base de données pour les quiz avec nombreuses questions
+**Responsivité**
+
+- Affichage sur desktop (1920x1080) ✅
+- Affichage sur tablet (768x1024) ✅
+- Affichage sur mobile (375x667) ✅
+
+**Compatibilité Navigateurs**
+
+- Chrome (version 120+) ✅
+- Firefox (version 115+) ✅
+- Edge (version 120+) ✅
+
+#### Tests de Sécurité
+
+- Protection contre les injections SQL ✅
+- Validation des données des formulaires ✅
+- Protection CSRF sur les formulaires ✅
+- Gestion des permissions utilisateurs ✅
+
+#### Tests de Performance
+
+- Temps de chargement des pages < 2s ✅
+- Optimisation des images ✅
+- Mise en cache effective ✅
+
+### Documentation des Tests
+
+| Date       | Fonctionnalité testée       | Résultat attendu                              | Résultat obtenu                              | Corrections effectuées                              |
+|------------|-----------------------------|----------------------------------------------|---------------------------------------------|----------------------------------------------------|
+| 06/05/2025 | Inscription utilisateur     | Création compte et redirection tableau de bord | ❌ Erreur lors de l'upload avatar            | Correction de la validation MIME type des images   |
+| 06/05/2025 | Connexion utilisateur       | Authentification et accès espace personnel    | ✅ Succès                                    | Aucune correction nécessaire                       |
+| 07/05/2025 | Création de quiz            | Enregistrement et publication du quiz         | ❌ Erreur BDD foreign key                    | Ajout des contraintes de clés étrangères manquantes|
+| 07/05/2025 | Modification quiz           | Mise à jour des données du quiz               | ✅ Succès                                    | Aucune correction nécessaire                       |
+| 08/05/2025 | Suppression quiz            | Suppression quiz et données associées         | ❌ Erreur cascade delete                     | Implémentation de la suppression en cascade        |
+| 08/05/2025 | Responsive design           | Affichage correct sur mobile                  | ❌ Problème tableaux                         | Ajout de scroll horizontal pour tableaux sur mobile|
+| 09/05/2025 | Sécurité formulaires        | Protection CSRF active                        | ✅ Succès                                    | Aucune correction nécessaire                       |
+| 09/05/2025 | Performance quiz            | Chargement < 2s                               | ❌ Lenteur chargement images                 | Optimisation et compression des images             |
+| 10/05/2025 | Partage résultats           | Fonctionnement API Web Share                  | ✅ Succès                                    | Aucune correction nécessaire                       |
+| 10/05/2025 | Gestion avatars             | Upload et redimensionnement                   | ❌ Problème permissions dossier              | Correction des droits d'accès du dossier uploads   |
+
+Cette documentation détaillée des tests permet de :
+- Suivre chronologiquement les tests effectués
+- Identifier rapidement les problèmes rencontrés
+- Documenter les corrections apportées
+- Assurer un suivi qualité du développement
 
 ## 9. Conclusion
 
-### Synthèse du projet
 
-Le projet Quiz Master Dev 2025 a permis de créer une plateforme de quiz interactive et complète, répondant aux besoins des joueurs et des administrateurs. L'architecture MVC mise en place offre une base solide pour maintenir et faire évoluer l'application.
+## Objectifs Atteints
+Durant ce projet ambitieux de 10 semaines, j'ai réussi à concrétiser ma vision d'une plateforme moderne d'apprentissage. La création de Quiz Master Dev m'a permis de répondre aux besoins identifiés initialement :
 
-Les objectifs initiaux du projet ont été atteints :
+L'interface responsive que j'ai développée s'adapte parfaitement à tous les supports, offrant une expérience utilisateur fluide que ce soit sur mobile ou desktop. Le système de gestion que j'ai mis en place permet aux administrateurs de gérer efficacement le contenu, tout en garantissant une sécurité optimale des données utilisateurs.
 
-- Une interface intuitive et conviviale a été développée
-- Les fonctionnalités essentielles pour les joueurs et administrateurs sont opérationnelles
-- La sécurité a été prise en compte à tous les niveaux
-- L'application est responsive et s'adapte à tous les appareils
+## Compétences Développées
+Ce projet a été une véritable opportunité d'approfondir mes compétences techniques. J'ai particulièrement progressé dans :
 
-### Compétences acquises et développées
+- **La programmation orientée objet en PHP** : J'ai implémenté une architecture MVC robuste, me permettant de structurer clairement mon code et de le rendre maintenable.
+  
+- **La gestion de base de données** : La conception et l'optimisation de la base MySQL m'ont permis de comprendre l'importance d'une structure de données réfléchie.
 
-Ce projet m'a permis de développer et d'approfondir plusieurs compétences :
+- **Le développement front-end** : J'ai créé une interface intuitive en utilisant les dernières technologies web (HTML5, CSS3, JavaScript).
 
-- Conception et développement d'une application complète avec architecture MVC
-- Implémentation des fonctionnalités back-end avec PHP orienté objet
-- Création d'interfaces modernes et responsives avec HTML5, CSS3/SCSS et JavaScript
-- Conception et gestion de base de données relationnelles avec MySQL
-- Mise en place de mesures de sécurité web (validation des entrées, échappement des sorties)
+## Points d'Amélioration
+Mon expérience m'a également permis d'identifier plusieurs axes d'amélioration :
 
-### Perspectives d'évolution du projet
+1. **Performance** : Bien que fonctionnelle, l'application pourrait bénéficier d'une optimisation plus poussée, notamment au niveau du chargement des images et de la mise en cache.
 
-Plusieurs évolutions sont envisageables pour améliorer l'application :
+2. **Tests** : L'implémentation de tests automatisés renforcerait la fiabilité de l'application. J'ai déjà prévu d'utiliser PHPUnit pour la prochaine version.
 
-- Ajout d'un système de quiz en temps limité avec options de paramétrage avancées
-- Implémentation d'un mode multijoueur pour jouer en temps réel contre d'autres participants
-- Intégration de médias riches (vidéos, audio) dans les questions
-- Extension des fonctionnalités de partage social pour inclure d'autres plateformes
-- **Implémentation du CRUD complet des utilisateurs** pour permettre aux administrateurs de gérer entièrement les comptes joueurs
-- **Activation du système de classification des joueurs** (tables quiz_player_class) permettant de les catégoriser en joueurs débutants, intermédiaires, experts ou professionnels selon leurs performances
-- **Enrichissement des systèmes de catégorisation et de difficulté** déjà présents dans la base de données (tables quiz_question_category, quiz_question_category_details et quiz_question_difficulte) pour une meilleure organisation des contenus
-- Mise en place de tests unitaires automatisés avec PHPUnit pour renforcer la fiabilité du code
-- Développement d'une API REST pour applications mobiles
-- Système de badges et récompenses pour motiver les joueurs
-- Classements par catégorie et globaux pour stimuler l'engagement
+3. **Containerisation** : La migration vers Docker faciliterait le déploiement et garantirait une meilleure portabilité du projet.
+
+## Bilan Personnel
+Ce projet a été une expérience enrichissante qui va bien au-delà du simple développement technique. Il m'a permis de :
+
+- **Développer mon autonomie** : Face aux défis techniques, j'ai appris à trouver des solutions par moi-même tout en sachant quand solliciter de l'aide.
+
+- **Gérer un projet complet** : De la conception à la livraison, j'ai acquis une vision globale du cycle de développement d'une application web.
+
+- **Communiquer efficacement** : La documentation détaillée que j'ai rédigée témoigne de ma capacité à transmettre des informations techniques de manière claire et structurée.
+
+Cette expérience confirme ma passion pour le développement web et renforce ma conviction d'avoir choisi la bonne voie professionnelle.
+
+
+
 
 ## 10. Annexes
 
@@ -666,27 +1377,73 @@ La documentation technique complète est disponible dans le fichier [TECHNICAL.m
 
 ### Structure complète de la base de données
 
-La base de données comprend non seulement les tables actuellement utilisées mais aussi des tables prévues pour les futures extensions (V2) :
+## 11. Évolutions Futures (V2)
 
-**Tables principales (V1) :**
+Plusieurs évolutions sont envisageables pour améliorer l'application :
 
-- `quiz_users` : Informations des utilisateurs
-- `quiz_question` : Questions des quiz
-- `quiz_question_answer` : Réponses possibles aux questions
-- `quiz_game_history` : Historique des parties jouées
-- `quiz_avatar` : Avatars disponibles pour les utilisateurs
+Dans la prochaine version, j'ai prévu d'implémenter un système complet de notifications pour améliorer le retour utilisateur lors des actions CRUD. Ce système se composera de :
 
-**Tables pour extension future (V2) :**
+**Types de Notifications**
+- Messages de succès (fond vert) pour confirmer les actions réussies
+- Messages d'avertissement (fond orange) pour alerter sur des actions importantes
+- Messages d'erreur (fond rouge) pour signaler les problèmes
+- Messages d'information (fond bleu) pour guider l'utilisateur
 
-- `quiz_player_class` : Classification des joueurs (débutant, intermédiaire, expert, pro)
-- `quiz_question_category` : Catégories principales des questions (HTML, CSS, JavaScript, etc.)
-- `quiz_question_category_details` : Sous-catégories détaillées des questions
-- `quiz_question_difficulte` : Niveaux de difficulté des questions (facile, moyen, difficile)
+**Contextes d'Utilisation**
+Création : "La question a été créée avec succès"
+Modification : "Vos modifications ont été enregistrées"
+Suppression : "La question a été supprimée définitivement"
+Validation : "Veuillez remplir tous les champs obligatoires"
 
-Cette structure de base de données a été conçue pour être évolutive et permettre l'ajout de fonctionnalités sans nécessiter de modifications majeures du schéma existant.
+**Fonctionnalités**
+Apparition fluide en haut de page
+Disparition automatique après 3 secondes
+Option de fermeture manuelle
+Conservation en cas d'erreur importante
+Animation subtile pour attirer l'attention
+Cette amélioration rendra l'interface plus intuitive et professionnelle, offrant un meilleur retour d'information aux utilisateurs sur leurs actions.
 
-### Références et sources
+- Ajout d'un système de quiz en temps limité avec options de paramétrage avancées
+- Implémentation d'un mode multijoueur pour jouer en temps réel contre d'autres participants
+- Intégration de médias riches (vidéos, audio) dans les questions
+- Extension des fonctionnalités de partage social pour inclure d'autres plateformes
+- **Implémentation du CRUD complet des utilisateurs** pour permettre aux administrateurs de gérer entièrement les comptes joueurs
+- **Activation du système de classification des joueurs** (tables quiz_player_class) permettant de les catégoriser en joueurs débutants, intermédiaires, experts ou professionnels selon leurs performances
+- **Enrichissement des systèmes de catégorisation et de difficulté** déjà présents dans la base de données (tables quiz_question_category, quiz_question_category_details et quiz_question_difficulte) pour une meilleure organisation des contenus
+- Mise en place de tests unitaires automatisés avec PHPUnit pour renforcer la fiabilité du code
+- Développement d'une API REST pour applications mobiles
+- Système de badges et récompenses pour motiver les joueurs
+- Classements par catégorie et globaux pour stimuler l'engagement
 
-- Documentation PHP : [php.net](https://www.php.net/docs.php)
-- Documentation MySQL : [dev.mysql.com](https://dev.mysql.com/doc/)
-- MDN Web Docs : [developer.mozilla.org](https://developer.mozilla.org/)
+
+### Système de Scores et Badges
+Le système avancé de scores et badges permettra une meilleure engagement des utilisateurs à travers :
+
+Points et Récompenses
+
+Points de base selon la difficulté des questions
+Bonus de rapidité pour les réponses rapides
+Multiplicateurs de points pour les séries de bonnes réponses
+Points bonus pour les premiers essais réussis
+Types de Badges
+
+Badges de niveau (Débutant, Intermédiaire, Expert)
+Badges thématiques par catégorie
+Badges spéciaux (Premier Quiz, Quiz Parfait)
+Badges de régularité (7 jours consécutifs)
+Classements
+
+Classement général
+Classements par catégorie
+Classements hebdomadaires et mensuels
+Top 10 des meilleurs joueurs
+Récompenses Spéciales
+
+Déblocage de quiz exclusifs
+Avatars spéciaux
+Titres honorifiques
+Accès à des fonctionnalités premium
+Cette fonctionnalité vise à augmenter la motivation des utilisateurs et à créer une communauté active autour de la plateforme.
+
+
+

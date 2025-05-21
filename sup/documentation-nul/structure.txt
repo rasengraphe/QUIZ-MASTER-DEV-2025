@@ -1,0 +1,17 @@
+📁 documentation/
+├── 1_introduction.md      (contenu existant de l'introduction)
+├── 2_presentation.md      (contenu existant de la présentation)
+├── 3_objectifs.md        (contenu existant des objectifs)
+├── 4_specifications.md    (contenu existant des spécifications)
+├── 5_spec_techniques.md  (contenu existant des specs techniques)
+├── 6_architecture.md     (contenu MVC, structure, etc.)
+├── 7_realisation/
+│   ├── 7.1_etapes.md     (planning, choix, etc.)
+│   ├── 7.2_maquettes.md  (wireframes, design)
+│   ├── 7.3_integration.md (front-end, code)
+│   ├── 7.4_database.md   (structure BD)
+│   └── 7.5_crud.md       (exemple CRUD)
+├── 8_tests.md           (tests et validation)
+├── 9_conclusion.md      (conclusion)
+├── 10_annexes.md        (annexes)
+└── 11_evolutions.md     (V2 et Docker)

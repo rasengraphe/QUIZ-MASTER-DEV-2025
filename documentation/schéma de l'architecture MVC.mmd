@@ -1,0 +1,34 @@
+graph TD
+    %% Définition des styles
+    classDef browser fill:#f9f,stroke:#333,stroke-width:2px
+    classDef mvc fill:#cfc,stroke:#333,stroke-width:2px
+    classDef database fill:#9cf,stroke:#333,stroke-width:2px
+
+    %% Composants principaux
+    B[Navigateur Web]:::browser
+    
+    subgraph MVC[Architecture MVC]
+        C[Contrôleurs<br>QuizController<br>UserController<br>AdminController]:::mvc
+        M[Modèles<br>QuizModel<br>UserModel<br>QuestionModel]:::mvc
+        V[Vues<br>Templates PHP<br>HTML/CSS/JS]:::mvc
+    end
+    
+    DB[(Base de données<br>MySQL)]:::database
+    
+    %% Relations
+    B -->|1. Requête HTTP| C
+    C -->|2. Demande données| M
+    M -->|3. Requête SQL| DB
+    DB -->|4. Résultats| M
+    M -->|5. Données| C
+    C -->|6. Données| V
+    V -->|7. Page HTML| B
+
+    %% Fichiers principaux
+    subgraph Structure["Structure des fichiers"]
+        direction TB
+        I[index.php<br>Point d'entrée]
+        CF[/controllers/*<br>Logique métier/]
+        MF[/models/*<br>Accès données/]
+        VF[/views/*<br>Templates/]
+    end

@@ -18,6 +18,8 @@
                 <?php 
                     if ($_GET['error'] == 'question_not_found') {
                         echo 'La question demandée n\'a pas été trouvée.';
+                    } elseif ($_GET['error'] == 'upload_failed') {
+                        echo 'Erreur lors du téléchargement de l\'image. Veuillez réessayer.';
                     } else {
                         echo 'Une erreur est survenue lors de la modification de la question.';
                     }
@@ -65,7 +67,8 @@
             ?>
             <div class="edit-form">
                 <h2>Modifier la Question</h2>
-                <form action="index.php?action=update_question" method="post" enctype="multipart/form-data">
+                <!-- IMPORTANT: enctype doit être "multipart/form-data" pour les téléchargements de fichiers -->
+                <form action="index.php?action=update_question" method="post" enctype="multipart/form-data" id="questionEditForm">
                     <input type="hidden" name="Id_question" value="<?php echo isset($selectedQuestion['Id_question']) ? $selectedQuestion['Id_question'] : ''; ?>">
                     
                     <div class="form-group">
@@ -130,7 +133,7 @@
                     
                     <!-- Gestion de l'image -->
                     <div class="form-group">
-                        <label for="question_image">Image de la question :</label>
+                        <label>Image de la question :</label>
                         
                         <div class="image-source-selector">
                             <div class="source-option">
@@ -141,19 +144,26 @@
                                 <input type="radio" name="image_source" id="img_source_upload" value="upload" <?= (!empty($selectedQuestion['picture']) && !filter_var($selectedQuestion['picture'], FILTER_VALIDATE_URL)) ? 'checked' : ''; ?>>
                                 <label for="img_source_upload">Par téléchargement</label>
                             </div>
+                            <div class="source-option">
+                                <input type="radio" name="image_source" id="img_source_none" value="none" <?= empty($selectedQuestion['picture']) ? 'checked' : ''; ?>>
+                                <label for="img_source_none">Pas d'image</label>
+                            </div>
                         </div>
                         
                         <!-- Option URL -->
                         <div id="url_option" class="image-option <?= (!empty($selectedQuestion['picture']) && filter_var($selectedQuestion['picture'], FILTER_VALIDATE_URL)) ? '' : 'hidden'; ?>">
-                            <label for="picture_url">URL de l'image (optionnel)</label>
-                            <input type="text" id="picture_url" name="picture_url" class="form-control" placeholder="OU entrez l'URL d'une image (JPG, PNG, GIF)" value="<?= (isset($selectedQuestion['picture']) && filter_var($selectedQuestion['picture'], FILTER_VALIDATE_URL)) ? $selectedQuestion['picture'] : ''; ?>">
+                            <label for="picture_url">URL de l'image</label>
+                            <input type="text" id="picture_url" name="picture_url" class="form-control" placeholder="Entrez l'URL d'une image (JPG, PNG, GIF)" value="<?= (isset($selectedQuestion['picture']) && filter_var($selectedQuestion['picture'], FILTER_VALIDATE_URL)) ? $selectedQuestion['picture'] : ''; ?>">
                         </div>
                         
-                        <!-- Option téléchargement -->
+                        <!-- Option téléchargement - IMPORTANT: Le nom du champ doit être correct -->
                         <div id="upload_option" class="image-option <?= (!empty($selectedQuestion['picture']) && !filter_var($selectedQuestion['picture'], FILTER_VALIDATE_URL)) ? '' : 'hidden'; ?>">
-                            <label for="question_image">Choisir un fichier</label>
-                            <input type="file" id="question_image" name="question_image" class="form-control-file">
+                            <label for="question_image_file">Choisir un fichier</label>
+                            <input type="file" id="question_image_file" name="question_image_file" class="form-control-file" accept="image/jpeg,image/png,image/gif">
                             <small class="form-text text-muted">Taille maximale: 2MB. Formats acceptés: JPG, PNG, GIF</small>
+                            <div class="form-text">
+                                <strong>Note:</strong> Les fichiers seront enregistrés dans le dossier uploads/questions/
+                            </div>
                         </div>
                         
                         <!-- Affichage de l'image actuelle -->
@@ -184,16 +194,20 @@
 </div>
 
 <?php
+// Débogage - à commenter en production
+echo "<div style='display: none;'>";
 echo "<pre>";
-print_r($questions);
-print_r($selectedQuestion);
-print_r($answers);
+// print_r($_FILES);  // Afficher les informations sur les fichiers téléchargés
+// print_r($questions);
+// print_r($selectedQuestion);
+// print_r($answers);
 echo "</pre>";
+echo "</div>";
 ?>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-// Gestion fermeture des notifications
+    // Gestion fermeture des notifications
     document.querySelectorAll('.close-notification').forEach(function(closeBtn) {
         closeBtn.addEventListener('click', function() {
             this.parentElement.style.display = 'none';
@@ -209,25 +223,71 @@ document.addEventListener('DOMContentLoaded', function() {
     
     const urlRadio = document.getElementById('img_source_url');
     const uploadRadio = document.getElementById('img_source_upload');
+    const noneRadio = document.getElementById('img_source_none');
     const urlOption = document.getElementById('url_option');
     const uploadOption = document.getElementById('upload_option');
     
     function toggleImageOptions() {
-        if (urlRadio && uploadRadio) {
+        if (urlRadio && uploadRadio && noneRadio) {
             if (urlRadio.checked) {
                 urlOption.classList.remove('hidden');
                 uploadOption.classList.add('hidden');
             } else if (uploadRadio.checked) {
                 urlOption.classList.add('hidden');
                 uploadOption.classList.remove('hidden');
+            } else if (noneRadio.checked) {
+                urlOption.classList.add('hidden');
+                uploadOption.classList.add('hidden');
             }
         }
     }
     
-    if (urlRadio && uploadRadio) {
+    if (urlRadio && uploadRadio && noneRadio) {
         urlRadio.addEventListener('change', toggleImageOptions);
         uploadRadio.addEventListener('change', toggleImageOptions);
+        noneRadio.addEventListener('change', toggleImageOptions);
         toggleImageOptions();
+    }
+    
+    // Validation du formulaire avant envoi
+    const questionForm = document.getElementById('questionEditForm');
+    if (questionForm) {
+        questionForm.addEventListener('submit', function(e) {
+            console.log('Formulaire soumis');
+            
+            // Vérifier quelle source d'image est sélectionnée
+            const imageSource = document.querySelector('input[name="image_source"]:checked')?.value;
+            console.log('Source d\'image sélectionnée:', imageSource);
+            
+            if (imageSource === 'url' && document.getElementById('picture_url').value.trim() === '') {
+                alert('Veuillez entrer une URL d\'image valide ou choisir une autre option.');
+                e.preventDefault();
+                return false;
+            }
+            
+            if (imageSource === 'upload') {
+                const fileInput = document.getElementById('question_image_file');
+                const hasCurrentImage = document.querySelector('input[name="current_image"]');
+                const removeImage = document.querySelector('input[name="remove_image"]')?.checked;
+                
+                // Vérifier si un fichier est sélectionné ou si une image existante est conservée
+                if (fileInput.files.length === 0 && !hasCurrentImage && !removeImage) {
+                    alert('Veuillez sélectionner un fichier à télécharger ou choisir une autre option.');
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Afficher les détails du fichier pour débogage
+                if (fileInput.files.length > 0) {
+                    const file = fileInput.files[0];
+                    console.log('Fichier sélectionné:', file.name);
+                    console.log('Type:', file.type);
+                    console.log('Taille:', file.size, 'bytes');
+                }
+            }
+            
+            return true;
+        });
     }
 });
 </script>

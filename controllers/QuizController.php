@@ -691,9 +691,16 @@ $_SESSION['error_message'] = "Vous n'avez pas les droits pour éditer ce quiz.";
                     $questionResults[] = [
                         'question' => $row['text'],
                         'correct' => $isCorrect,
-                        'correctAnswer' => $row['text']
+                        'correctAnswer' => $this->quizModel->getCorrectAnswerText($row['Id_question']),
+                        'userAnswer' => $userAnswerId
                     ];
                 }
+            }
+
+            // Ajouter les réponses correctes aux questions
+            foreach ($questions as &$question) {
+                $correct_answer = $this->quizModel->getCorrectAnswer($question['Id_question']);
+                $question['correct_answer'] = $correct_answer['reponse']; // Assurez-vous que 'reponse' est le bon nom de colonne
             }
 
             // Calculer le pourcentage
@@ -722,7 +729,8 @@ $_SESSION['error_message'] = "Vous n'avez pas les droits pour éditer ce quiz.";
                 'totalQuestions' => $totalQuestions,
                 'percentageScore' => $percentageScore,
                 'questionResults' => $questionResults,
-                'quizId' => $quizId
+                'quizId' => $quizId,
+                'questions' => $questions
             ]);
 
         } catch (Exception $e) {

@@ -300,5 +300,48 @@ WHERE id = :id
             return false;
         }
     }
+
+    /**
+     * Récupère la réponse correcte pour une question
+     */
+    public function getCorrectAnswer($questionId) {
+        $query = $this->db->prepare('
+            SELECT reponse 
+            FROM quiz_question_answer 
+            WHERE Id_question = ? 
+            AND is_correct = 1
+        ');
+        $query->execute([$questionId]);
+        return $query->fetch();
+    }
+
+    /**
+     * Récupère le texte de la réponse correcte pour une question
+     */
+    public function getCorrectAnswerText($questionId) {
+        try {
+            $query = $this->db->prepare("
+                SELECT text 
+                FROM quiz_question_answer 
+                WHERE Id_question = ? 
+                AND correct = 1 
+                LIMIT 1
+            ");
+            
+            $query->execute([$questionId]);
+            $result = $query->fetch(PDO::FETCH_ASSOC);
+            
+            if (!$result || empty($result['text'])) {
+                error_log("Question ID: $questionId - Pas de réponse trouvée");
+                return "Réponse non trouvée";
+            }
+            
+            return $result['text'];
+            
+        } catch (PDOException $e) {
+            error_log("Erreur SQL dans getCorrectAnswerText: " . $e->getMessage());
+            return "Erreur lors de la récupération de la réponse";
+        }
+    }
 }
 ?>

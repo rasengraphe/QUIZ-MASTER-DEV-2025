@@ -1,0 +1,31 @@
+graph TD
+    %% Définition des styles
+    classDef userAction fill:#f9f,stroke:#333,stroke-width:2px;
+    classDef systemAction fill:#9cf,stroke:#333,stroke-width:2px;
+    classDef decision fill:#ffc,stroke:#333,stroke-width:2px;
+
+    %% Nœuds du parcours utilisateur
+    Start([Entrée sur le site]):::userAction
+    Login{Déjà inscrit ?}:::decision
+    Register[S'inscrire]:::userAction
+    Auth[Se connecter]:::userAction
+    Home[Page d'accueil]:::systemAction
+    SelectQuiz[Sélection du Quiz]:::userAction
+    StartQuiz[Démarrer le Quiz]:::userAction
+    Answer[Répondre aux questions]:::userAction
+    Result[Voir les résultats]:::systemAction
+    Share[Partager les résultats]:::userAction
+
+    %% Flux principal
+    Start --> Login
+    Login -->|Non| Register
+    Login -->|Oui| Auth
+    Register --> Auth
+    Auth --> Home
+    Home --> SelectQuiz
+    SelectQuiz --> StartQuiz
+    StartQuiz --> Answer
+    Answer --> Result
+    Result --> Share
+    Result -->|Nouveau Quiz| SelectQuiz
+    Result -->|Accueil| Home

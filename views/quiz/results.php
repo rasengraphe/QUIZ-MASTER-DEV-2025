@@ -26,9 +26,10 @@
                     
                     <?php if ($result['correct']): ?>
                         <p class="correct">✓ Votre réponse est correcte</p>
+                        <p class="answer">La bonne réponse est : <?php echo htmlspecialchars($result['correctAnswer']); ?></p>
                     <?php else: ?>
                         <p class="incorrect">✗ Votre réponse est incorrecte</p>
-                        <p>La bonne réponse était: <?php echo htmlspecialchars($result['correctAnswer']); ?></p>
+                        <p class="answer">La bonne réponse était : <?php echo htmlspecialchars($result['correctAnswer']); ?></p>
                     <?php endif; ?>
                 </div>
             <?php endforeach; ?>
