@@ -1,5 +1,7 @@
 <?php
-// quiz_project/core/Controller.php
+// core/Controller.php
+require_once __DIR__ . '/../helpers/SecurityHelper.php';
+
 class Controller {
     protected $db;
 
@@ -7,9 +9,26 @@ class Controller {
         $this->db = $db;
     }
 
+    /**
+     * Vérifie si l'utilisateur est connecté
+     */
+    protected function checkAuth() {
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: index.php?action=login');
+            exit();
+        }
+    }
+
+    /**
+     * Nettoie les entrées utilisateur
+     */
+    protected function sanitizeInput($data) {
+        return SecurityHelper::cleanInput($data);
+    }
+
     protected function view($view, $data = []) {
         extract($data);
-        include 'views/' . $view . '.php';
+        include __DIR__ . '/../views/' . $view . '.php';
     }
 
     //  Fonction pour échapper les sorties (XSS protection)

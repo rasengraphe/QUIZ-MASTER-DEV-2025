@@ -1,42 +1,90 @@
 <?php
-
+require_once __DIR__ . '/../core/Controller.php';
+/**
+ * Contrôleur de gestion des questions
+ * Gère toutes les opérations liées aux questions du quiz :
+ * - Création
+ * - Modification
+ * - Suppression
+ * - Gestion des images associées
+ */
 class QuestionController extends Controller {
+    /** @var QuestionModel Instance du modèle de questions */
     private $questionModel;
 
+    /**
+     * Constructeur du contrôleur
+     * Initialise le modèle de questions
+     * @param PDO $db Instance de la connexion à la base de données
+     */
     public function __construct($db) {
         parent::__construct($db);
         $this->questionModel = new QuestionModel($db);
     }
 
-    // Méthode pour mettre à jour une question
+    /**
+     * Nettoie et valide les entrées
+     * @param string $data Donnée à nettoyer
+     * @return string Donnée nettoyée
+     */
+    private function cleanInput($data) {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
+        return $data;
+    }
+
+    /**
+     * Méthode de mise à jour d'une question
+     * Gère la modification complète d'une question :
+     * - Texte de la question
+     * - Réponses associées
+     * - Image (upload ou URL)
+     * - Catégorie et difficulté
+     */
     public function update_question() {
-        // Vérifier si l'utilisateur est autorisé
+        // Vérification de sécurité : l'utilisateur doit être connecté
         if (!isset($_SESSION['user_id'])) {
             header('Location: index.php?action=login');
             exit();
         }
 
-        // Journaliser toutes les données envoyées pour le débogage
+        // Logging pour debug
         error_log("POST: " . print_r($_POST, true));
         error_log("FILES: " . print_r($_FILES, true));
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Récupérer l'ID de la question
-            $questionId = isset($_POST['Id_question']) ? intval($_POST['Id_question']) : 0;
+            // Validation et nettoyage de l'ID
+            $questionId = filter_var(
+                isset($_POST['Id_question']) ? $_POST['Id_question'] : 0,
+                FILTER_VALIDATE_INT
+            );
 
-            if ($questionId <= 0) {
+            if ($questionId === false || $questionId <= 0) {
                 header('Location: index.php?action=edit_question&error=invalid_id');
                 exit();
             }
 
-            // Récupérer les données du formulaire
-            $text = isset($_POST['text']) ? trim($_POST['text']) : '';
-            $category = isset($_POST['Id_question_category']) && !empty($_POST['Id_question_category']) 
-                ? intval($_POST['Id_question_category']) : null;
-            $difficulty = isset($_POST['Id_question_difficulte']) && !empty($_POST['Id_question_difficulte']) 
-                ? intval($_POST['Id_question_difficulte']) : null;
+            // Nettoyage des entrées
+            $text = $this->cleanInput($_POST['text'] ?? '');
+            $category = filter_var(
+                $_POST['Id_question_category'] ?? null,
+                FILTER_VALIDATE_INT
+            );
+            $difficulty = filter_var(
+                $_POST['Id_question_difficulte'] ?? null,
+                FILTER_VALIDATE_INT
+            );
+            
+            // Validation de l'URL d'image
+            $picture_url = isset($_POST['picture_url']) ? 
+                filter_var($_POST['picture_url'], FILTER_VALIDATE_URL) : null;
 
-            // Traitement de l'image
+            // Nettoyage du chemin d'image actuel
+            $current_image = isset($_POST['current_image']) ? 
+                $this->cleanInput($_POST['current_image']) : null;
+
+            // Gestion des images
             $picture = null;
             $imageSource = isset($_POST['image_source']) ? $_POST['image_source'] : 'none';
 
@@ -145,53 +193,98 @@ class QuestionController extends Controller {
                     throw new Exception("La mise à jour de la question a échoué");
                 }
 
-                // Traitement des réponses
-                $answers = isset($_POST['answers']) ? $_POST['answers'] : [];
-                $correctAnswerIndex = isset($_POST['correct_answer']) ? intval($_POST['correct_answer']) : -1;
+                // Gestion des réponses
+                $this->updateAnswers($questionId, $_POST);
 
-                // Mettre à jour chaque réponse
-                foreach ($answers as $index => $answer) {
-                    $answerId = isset($answer['Id_question_answer']) ? intval($answer['Id_question_answer']) : 0;
-                    $answerText = isset($answer['text']) ? trim($answer['text']) : '';
-                    $isCorrect = ($index == $correctAnswerIndex) ? 1 : 0;
-
-                    if ($answerId > 0) {
-                        // Mettre à jour une réponse existante
-                        $this->questionModel->updateAnswer([
-                            'Id_question_answer' => $answerId,
-                            'text' => $answerText,
-                            'correct' => $isCorrect
-                        ]);
-                    } else {
-                        // Créer une nouvelle réponse
-                        $this->questionModel->addAnswer([
-                            'text' => $answerText,
-                            'correct' => $isCorrect,
-                            'Id_question' => $questionId
-                        ]);
-                    }
-                }
-
+                // Validation de la transaction
                 $this->db->commit();
 
-                // Rediriger vers la page de succès
+                // Redirection avec succès
                 header("Location: index.php?action=edit_question&id=$questionId&success=question_updated");
                 exit();
+
             } catch (Exception $e) {
-                // En cas d'erreur, annuler la transaction
+                // Rollback en cas d'erreur
                 $this->db->rollBack();
                 error_log("Erreur: " . $e->getMessage());
-
                 header("Location: index.php?action=edit_question&id=$questionId&error=update_failed");
                 exit();
             }
         } else {
-            // Si ce n'est pas une requête POST, rediriger vers le dashboard
+            // Redirection si accès direct sans POST
             header('Location: index.php?action=admin_dashboard');
             exit();
         }
     }
 
-    // Autres méthodes du contrôleur...
+    /**
+     * Ajoute une question à un quiz
+     * @param int $quizId ID du quiz
+     */
+    public function addQuestionToQuiz($quizId) {
+        // Vérification des droits admin
+        if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+            $_SESSION['error_message'] = "Vous n'avez pas les droits pour modifier ce quiz.";
+            header("Location: index.php?action=quiz");
+            exit();
+        }
+        
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Validation et nettoyage des entrées
+            $questionId = filter_var($_POST['question_id'] ?? 0, FILTER_VALIDATE_INT);
+            $order = filter_var($_POST['order'] ?? 0, FILTER_VALIDATE_INT);
+            
+            if ($questionId > 0) {
+                try {
+                    $added = $this->questionModel->addQuestionToQuiz($quizId, $questionId, $order);
+                    $_SESSION['success_message'] = "Question ajoutée au quiz avec succès.";
+                } catch (Exception $e) {
+                    $_SESSION['error_message'] = "Erreur lors de l'ajout de la question au quiz.";
+                    error_log($e->getMessage());
+                }
+            } else {
+                $_SESSION['error_message'] = "Question invalide.";
+            }
+            
+            header("Location: index.php?action=edit_quiz&id=" . $quizId);
+            exit();
+        }
+    }
+
+    /**
+     * Supprime une question d'un quiz
+     * @param int $quizId ID du quiz
+     * @param int $questionId ID de la question
+     */
+    public function removeQuestionFromQuiz($quizId, $questionId) {
+        if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+            $_SESSION['error_message'] = "Vous n'avez pas les droits pour modifier ce quiz.";
+            header("Location: index.php?action=quiz");
+            exit();
+        }
+        
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            try {
+                // Validation des IDs
+                $quizId = filter_var($quizId, FILTER_VALIDATE_INT);
+                $questionId = filter_var($questionId, FILTER_VALIDATE_INT);
+                
+                if (!$quizId || !$questionId) {
+                    throw new Exception("IDs invalides");
+                }
+
+                $removed = $this->questionModel->removeQuestionFromQuiz($quizId, $questionId);
+                $_SESSION['success_message'] = "Question retirée du quiz avec succès.";
+            } catch (Exception $e) {
+                $_SESSION['error_message'] = "Erreur lors du retrait de la question du quiz.";
+                error_log($e->getMessage());
+            }
+            
+            header("Location: index.php?action=edit_quiz&id=" . $quizId);
+            exit();
+        }
+    }
+
+    // ... autres méthodes du contrôleur ...
 }
 ?>

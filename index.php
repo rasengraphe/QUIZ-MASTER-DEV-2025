@@ -1,17 +1,19 @@
 <?php
-session_start(); // Démarre les sessions
+session_start();
 
-// Configuration des erreurs (à activer pour déboguer)
+// Configuration des erreurs
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 ini_set('log_errors', 1);
 ini_set('error_log', __DIR__ . '/error.log');
 
-// Inclure la configuration de la base de données
+// Inclusions nécessaires
 require_once 'config/database.php';
+require_once 'core/Controller.php';
+require_once 'core/Router.php';
 
-// Autoloading des classes
+// Autoloading
 function chargerClasse($classe) {
     $chemins = ['controllers/', 'models/', 'core/'];
     foreach ($chemins as $chemin) {
@@ -24,7 +26,10 @@ function chargerClasse($classe) {
 }
 spl_autoload_register('chargerClasse');
 
-// Récupération de l'action depuis l'URL
+// Initialisation du router
+$router = new Router($db);
+
+// Récupération et traitement de l'action
 $action = $_GET['action'] ?? 'home';
 
 // Router
@@ -59,6 +64,14 @@ switch ($action) {
     case 'quiz':
         $controller = new QuizController($db);
         $controller->index();
+        break;
+    case 'add_question_to_quiz':
+        $controller = new QuestionController($db);
+        $controller->addQuestionToQuiz($_GET['quizId']);
+        break;
+    case 'remove_question_from_quiz':
+        $controller = new QuestionController($db);
+        $controller->removeQuestionFromQuiz($_GET['quizId'], $_GET['questionId']);
         break;
     case 'select_quiz':
         $controller = new QuizController($db);

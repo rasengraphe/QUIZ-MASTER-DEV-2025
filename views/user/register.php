@@ -41,7 +41,7 @@
                 <input type="password" id="password_confirm" name="password_confirm" required>
             </div>
 
-            <!-- Version améliorée et responsive pour les avatars -->
+            <!--  responsive pour les avatars -->
             <div class="form-group">
                 <label>Choisissez un avatar :</label>
                 <div class="avatar-selection">

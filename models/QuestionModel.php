@@ -1,10 +1,48 @@
 <?php
 /**
- * Classe QuestionModel - Gère toutes les interactions avec la base de données pour les questions
- * Hérite de la classe Model pour la connexion à la base de données
+ * Modèle de gestion des questions du quiz
+ * 
+ * Cette classe gère toutes les interactions avec la base de données concernant :
+ * - La gestion des questions (CRUD)
+ * - La gestion des réponses associées
+ * - La recherche et le filtrage des questions
+ * - La vérification des réponses
+ * 
+ * Structure de la base de données utilisée :
+ * - quiz_question : table principale des questions
+ * - quiz_question_answer : table des réponses possibles
+ * - quiz_questions : table de liaison quiz-questions
+ * 
+ * @package QuizMaster
+ * @subpackage Models
  */
 class QuestionModel extends Model {
-    protected $db; // Instance de PDO pour la connexion à la base de données
+    /** @var PDO Instance de connexion à la base de données */
+    protected $db;
+
+    /**
+     * Méthodes de gestion des questions :
+     * --------------------------------
+     * - getAllQuestions() : Récupère toutes les questions
+     * - getQuestionById() : Récupère une question par son ID
+     * - createQuestion() : Crée une nouvelle question
+     * - updateQuestion() : Met à jour une question existante
+     * - deleteQuestion() : Supprime une question et ses dépendances
+     * 
+     * Méthodes de gestion des réponses :
+     * --------------------------------
+     * - getAnswersForQuestion() : Récupère les réponses d'une question
+     * - getCorrectAnswerForQuestion() : Récupère la réponse correcte
+     * - addAnswer() : Ajoute une nouvelle réponse
+     * - updateAnswer() : Met à jour une réponse existante
+     * - deleteAnswer() : Supprime une réponse
+     * 
+     * Méthodes utilitaires :
+     * --------------------------------
+     * - countQuestions() : Compte le nombre total de questions
+     * - searchQuestions() : Recherche des questions par texte
+     * - checkAnswer() : Vérifie si une réponse est correcte
+     */
 
     /**
      * Constructeur - Initialise la connexion à la base de données
@@ -450,5 +488,35 @@ class QuestionModel extends Model {
             return false;
         }
     }
+
+    /**
+     * Gestion des erreurs :
+     * --------------------------------
+     * Toutes les méthodes :
+     * - Utilisent des blocs try-catch pour la gestion des erreurs
+     * - Journalisent les erreurs avec error_log()
+     * - Retournent false ou tableau vide en cas d'échec
+     * 
+     * Transactions :
+     * - Utilisées pour les opérations multiples
+     * - Rollback automatique en cas d'erreur
+     * 
+     * Sécurité :
+     * - Utilisation de requêtes préparées
+     * - Validation des données en entrée
+     * - Échappement des données en sortie
+     */
+
+    /**
+     * Bonnes pratiques implémentées :
+     * --------------------------------
+     * 1. Séparation des responsabilités (une méthode = une action)
+     * 2. Gestion cohérente des erreurs
+     * 3. Documentation complète des méthodes
+     * 4. Utilisation de transactions pour l'intégrité des données
+     * 5. Logging des opérations importantes
+     * 6. Validation des données
+     * 7. Retours cohérents (false/array vide en cas d'erreur)
+     */
 }
 ?>

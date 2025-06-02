@@ -168,63 +168,6 @@ $_SESSION['error_message'] = "Vous n'avez pas les droits pour éditer ce quiz.";
             
             $this->view('quiz/delete_quiz', ['quiz' => $quiz]);
         }
-            }
-            
-            /**
-     * Ajoute une question à un quiz
-     */
-    public function addQuestion($quizId) {
-        // Vérifier si l'utilisateur est un administrateur
-        if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
-            $_SESSION['error_message'] = "Vous n'avez pas les droits pour modifier ce quiz.";
-            header("Location: index.php?action=quiz");
-            exit();
-        }
-        
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $questionId = $_POST['question_id'] ?? 0;
-            $order = $_POST['order'] ?? 0;
-            
-            if ($questionId > 0) {
-                $added = $this->quizModel->addQuestionToQuiz($quizId, $questionId, $order);
-                
-                if ($added) {
-                    $_SESSION['success_message'] = "Question ajoutée au quiz avec succès.";
-                } else {
-                    $_SESSION['error_message'] = "Erreur lors de l'ajout de la question au quiz.";
-        }
-        } else {
-                $_SESSION['error_message'] = "Question invalide.";
-            }
-            
-            header("Location: index.php?action=edit_quiz&id=" . $quizId);
-            exit();
-        }
-    }
-
-    /**
-     * Supprime une question d'un quiz
-     */
-    public function removeQuestion($quizId, $questionId) {
-        // Vérifier si l'utilisateur est un administrateur
-        if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
-            $_SESSION['error_message'] = "Vous n'avez pas les droits pour modifier ce quiz.";
-            header("Location: index.php?action=quiz");
-            exit();
-        }
-        
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $removed = $this->quizModel->removeQuestionFromQuiz($quizId, $questionId);
-            
-            if ($removed) {
-                $_SESSION['success_message'] = "Question retirée du quiz avec succès.";
-            } else {
-                $_SESSION['error_message'] = "Erreur lors du retrait de la question du quiz.";
-            }
-            
-            header("Location: index.php?action=edit_quiz&id=" . $quizId);
-            exit();
-        }
     }
 
     /**
@@ -233,7 +176,7 @@ $_SESSION['error_message'] = "Vous n'avez pas les droits pour éditer ce quiz.";
     public function select() {
         $quizzes = $this->quizModel->getAllQuizzes();
 
-        // Remplacer les requêtes aux tables qui seront en v2 par des données statiques
+        // Données statiques pour v2
         $categories = [
             ['Id_question_category' => 1, 'title' => 'HTML'],
             ['Id_question_category' => 2, 'title' => 'CSS'],
@@ -247,7 +190,7 @@ $_SESSION['error_message'] = "Vous n'avez pas les droits pour éditer ce quiz.";
         ];
         
         $this->view('quiz/select', [
-'quizzes' => $quizzes,
+            'quizzes' => $quizzes,
             'categories' => $categories,
             'difficulties' => $difficulties
         ]);
@@ -375,7 +318,7 @@ $_SESSION['error_message'] = "Vous n'avez pas les droits pour éditer ce quiz.";
     }
     
     /**
-     * Crée des questions de test pour un quiz
+     * Crée des questions de pour un quiz
      */
     private function createTestQuestions($quizId, $themeId, $difficultyId) {
         // Questions de base pour démarrer rapidement

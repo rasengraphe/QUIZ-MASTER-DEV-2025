@@ -1,17 +1,46 @@
-<?php include 'views/layout/header.php'; ?>
+<?php
+/**
+ * Vue du formulaire de gestion des questions (ajout/modification)
+ * Cette page permet aux administrateurs de créer ou modifier des questions du quiz
+ * Elle gère :
+ * - Le formulaire de saisie des questions et réponses
+ * - L'upload ou l'ajout d'URL d'images
+ * - L'affichage des messages de confirmation
+ */
+
+// Démarrage de la session si pas déjà fait
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Initialisation des variables
+if (!isset($question)) {
+    $question = array();
+}
+if (!isset($answers)) {
+    $answers = array();
+}
+if (!isset($errors)) {
+    $errors = array();
+}
+
+include 'views/layout/header.php';
+?>
 
 <?php
-// Supprimer toute variable de session qui pourrait afficher une modal
+// Nettoyage de la session pour éviter l'affichage intempestif de la modal
 if (isset($_SESSION['question_added'])) {
     unset($_SESSION['question_added']);
 }
 ?>
 
 <div class="question-form-container">
+    <!-- Titre dynamique selon le contexte (ajout ou modification) -->
     <h1>
         <?php echo isset($question['Id_question']) ? 'Modifier la Question' : 'Ajouter une Question'; ?>
-</h1>
+    </h1>
     
+    <!-- Affichage des messages d'erreur s'il y en a -->
     <?php if (isset($errors) && !empty($errors)) : ?>
         <div class="error-container">
             <?php foreach ($errors as $error) : ?>
@@ -20,7 +49,7 @@ if (isset($_SESSION['question_added'])) {
         </div>
     <?php endif; ?>
 
-    <!-- Modal de confirmation -->
+    <!-- Modal de confirmation après sauvegarde réussie -->
     <div id="confirmation-modal" class="modal <?php echo isset($_SESSION['question_added']) ? 'show' : ''; ?>">
         <div class="modal-content">
             <span class="close">&times;</span>
@@ -34,24 +63,28 @@ if (isset($_SESSION['question_added'])) {
         </div>
     </div>
 
+    <!-- Formulaire principal -->
     <form method="POST" action="index.php?action=storeQuestion" enctype="multipart/form-data" class="question-form">
+        <!-- Champ caché pour l'ID en cas de modification -->
         <input type="hidden" name="Id_question" value="<?php echo isset($question['Id_question']) ? htmlspecialchars($question['Id_question']) : ''; ?>">
         
+        <!-- Section texte de la question -->
         <div class="form-group">
             <label for="question_text">Question :</label>
             <textarea id="question_text" name="question_text" placeholder="Entrez la question" required><?php echo isset($question['text']) ? htmlspecialchars($question['text']) : ''; ?></textarea>
         </div>
         
         <?php
-        // Initialiser un tableau de réponses avec au moins 3 éléments
+        // Configuration des réponses
+        // Garantit qu'il y a toujours 3 réponses possibles
         $answersArray = isset($answers) && is_array($answers) ? $answers : [['text' => ''], ['text' => ''], ['text' => '']];
         
-        // Remplir jusqu'à 3 réponses
+        // Complète jusqu'à 3 réponses si nécessaire
         while (count($answersArray) < 3) {
             $answersArray[] = ['text' => ''];
         }
         
-        // Trouver l'index de la réponse correcte
+        // Détermine quelle réponse est marquée comme correcte
         $correctAnswerIndex = -1;
         foreach ($answersArray as $index => $answer) {
             if (isset($answer['correct']) && $answer['correct'] == 1) {
@@ -59,10 +92,10 @@ if (isset($_SESSION['question_added'])) {
                 break;
             }
         }
-        
-        // Afficher les champs pour chaque réponse
-        foreach ($answersArray as $index => $answer) :
         ?>
+        
+        <!-- Boucle d'affichage des champs de réponse -->
+        <?php foreach ($answersArray as $index => $answer) : ?>
         <div class="form-group">
             <label for="answer<?php echo $index + 1; ?>">Réponse <?php echo $index + 1; ?> :</label>
             <input type="text" id="answer<?php echo $index + 1; ?>" name="answers[]" 
@@ -71,6 +104,7 @@ value="<?php echo isset($answer['text']) ? htmlspecialchars($answer['text']) : '
         </div>
 <?php endforeach; ?>
         
+        <!-- Sélection de la réponse correcte -->
         <div class="form-group">
             <label for="correct">Réponse correcte (1, 2 ou 3) :</label>
             <select id="correct" name="correct" required>
@@ -81,12 +115,11 @@ value="<?php echo isset($answer['text']) ? htmlspecialchars($answer['text']) : '
             </select>
         </div>
         
-        <!-- Suppression des sections catégorie et niveau de difficulté -->
-        
-        <!-- Modification de la section image dans le formulaire -->
+        <!-- Section gestion des images -->
         <div class="form-group">
             <label>Image de la question :</label>
             
+            <!-- Interface à onglets pour le choix du type d'ajout d'image -->
             <div class="image-option-tabs">
                 <div class="tab-buttons">
                     <button type="button" class="tab-button active" data-tab="url">Par URL</button>
@@ -121,7 +154,7 @@ value="<?php echo isset($answer['text']) ? htmlspecialchars($answer['text']) : '
             </div>
         </div>
         
-        <!-- Modification de la section des boutons d'action -->
+        <!-- Boutons d'action du formulaire -->
         <div class="form-actions">
             <button type="submit" class="btn primary"><?php echo isset($question['Id_question']) ? 'Modifier' : 'Enregistrer'; ?></button>
             <button type="button" id="reset-form" class="btn secondary">Annuler</button>
@@ -130,7 +163,16 @@ value="<?php echo isset($answer['text']) ? htmlspecialchars($answer['text']) : '
     </form>
 </div>
 
+<!-- Scripts JavaScript -->
 <script>
+/**
+ * Gestionnaire d'événements principal
+ * Gère :
+ * - Les interactions avec la modal de confirmation
+ * - La réinitialisation du formulaire
+ * - La prévisualisation des images
+ * - Le système d'onglets pour l'upload d'images
+ */
 document.addEventListener('DOMContentLoaded', function() {
     // Gestion de la modal
     var modal = document.getElementById('confirmation-modal');
